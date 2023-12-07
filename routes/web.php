@@ -33,10 +33,11 @@ Route::post('/login', 'App\Http\Controllers\LoginController@login')->name('login
 
 
 //home
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home');
+Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')-> middleware('auth');
 
 
 //role
+Route::group(['middleware' => ['auth','ceklevel:user']], function (){
 Route::get('/role', 'App\Http\Controllers\RoleController@data'); //data
 Route::get('/role/add', 'App\Http\Controllers\RoleController@add'); //add
 Route::post('/role', 'App\Http\Controllers\RoleController@addProcess'); //prosesadding
@@ -44,20 +45,23 @@ Route::get('/role/edit/{id}', 'App\Http\Controllers\RoleController@edit'); //edi
 Route::patch('/role/{id}', 'App\Http\Controllers\RoleController@editProcess'); //prosesediting
 Route::delete('/role/{id}', 'App\Http\Controllers\RoleController@delete'); //delete
 Route::get('role/{id}', 'App\Http\Controllers\RoleController@show')->name('role.show'); //show
+});
 
 
 //user
-Route::resource('user', 'App\Http\Controllers\UserController');
+Route::resource('user', 'App\Http\Controllers\UserController')-> middleware('auth');
 
 //satuan
-Route::resource('satuan', 'App\Http\Controllers\SatuanController');
+Route::resource('satuan', 'App\Http\Controllers\SatuanController')-> middleware('auth');
 
 //barang
+Route::group(['middleware' => ['auth','ceklevel:user']], function (){
 Route::resource('barang', 'App\Http\Controllers\BarangController');
 Route::post('/caribarang', 'App\Http\Controllers\BarangController@caribarang'); //prosesadding
 Route::get('cari', function () {
     return view('barang/cari');
 });
+});
 
 //vendor
-Route::resource('vendor', 'App\Http\Controllers\VendorController');
+Route::resource('vendor', 'App\Http\Controllers\VendorController')-> middleware('auth');

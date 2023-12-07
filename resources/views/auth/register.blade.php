@@ -28,31 +28,30 @@
     <!-- <script type="text/javascript" src="https://cdn.jsdelivr.net/html5shiv/3.7.3/html5shiv.min.js"></script> -->
 
 </head>
-<body class="bg-dark">
-
+<body>
 
     <div class="sufee-login d-flex align-content-center flex-wrap">
         <div class="container">
             <div class="login-content">
                 <div class="login-logo">
                     <a href="index.html">
-                        <img class="align-content" src="images/logo.png" alt="">
+                        {{-- <img class="align-content" src="images/logo.png" alt=""> --}}
                     </a>
                 </div>
                 <div class="login-form">
                     <form method="POST" action="{{ route('register') }}">
-                        @csrf
+                        @csrf <!-- Tambahkan token CSRF untuk validasi form -->
                         <div class="form-group">
                             <label>Nama User</label>
-                            <input type="text" name="name" class="form-control" placeholder="Nama User" autofocus required>
+                            <input type="name" name="name" class="form-control" placeholder="Nama user">
                         </div>
                         <div class="form-group">
-                            <label>Email</label>
-                            <input type="text" name="email" class="form-control" placeholder="Email"autofocus required>
+                            <label>Email address</label>
+                            <input type="email" name="email" class="form-control" placeholder="Email">
                         </div>
                         <div class="form-group">
                             <label>Password</label>
-                            <input type="text" name="password" class="form-control" placeholder="Paword" autofocus required>
+                            <input type="password" name="password" class="form-control" placeholder="Password">
                         </div>
                         <div class="form-group">
                             <label for="role">Role</label>
@@ -64,8 +63,9 @@
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Register</button>
+                        <hr>
                         <div class="register-link m-t-15 text-center">
-                            <p>Already have account ? <a href="/login"> Sign in</a></p>
+                            <p>Already have account ? <a href="#"> Sign in</a></p>
                         </div>
                     </form>
                 </div>
