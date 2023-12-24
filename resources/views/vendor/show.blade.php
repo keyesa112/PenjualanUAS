@@ -53,7 +53,7 @@
                                     </tr>
                                     <tr>
                                         <th>Status</th>
-                                        <td>{{ $vendors->status_aktif}}</td>
+                                        <td>{{ $vendors->status}}</td>
                                     </tr>
                                 </tbody>
                             </table>

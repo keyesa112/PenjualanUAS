@@ -67,10 +67,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="role">Role</label>
-                                    <select name="idRole" class="form-control" required>
+                                    <select name="idRole" class="form-control" value="{{ $users->idrole }}" required>
                                         <option value="">Pilih Role</option>
-                                        @foreach($roles as $item)
-                                                <option value="{{ $item->id_role }}">{{ $item->nama_role}}</option>
+                                        @foreach($roles->whereNull('deleted_at') as $item)
+                                            <option value="{{ $item->idrole }}">{{ $item->nama_role }}</option>
                                         @endforeach
                                     </select>
                                 </div>

@@ -57,13 +57,13 @@
                              <td>{{ $loop->iteration }}</td>
                              <td>{{ $item->nama_role }}</td>
                              <td class="text-center">
-                                <a href="{{ url('role/' . $item->id_role) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ url('role/' . $item->idrole) }}" class="btn btn-warning btn-sm">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a href="{{ url('role/edit/' . $item->id_role ) }}" class="btn btn-primary btn-sm">
+                                <a href="{{ url('role/edit/' . $item->idrole ) }}" class="btn btn-primary btn-sm">
                                     <i class="fa fa-pencil"></i>
                                 </a>
-                                <form action="{{ url('role/' . $item->id_role) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
+                                <form action="{{ url('role/' . $item->idrole) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger btn-sm">

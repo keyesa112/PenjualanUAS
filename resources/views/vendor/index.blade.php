@@ -59,15 +59,15 @@
                              <td>{{ $loop->iteration }}</td>
                              <td>{{ $item->nama_vendor }}</td>
                              <td>{{ $item->badan_hukum }}</td>
-                             <td>{{ $item->status_aktif }}</td>
+                             <td>{{ $item->status }}</td>
                              <td class="text-center">
-                                <a href="{{ url('vendor/' . $item->id ) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ url('vendor/' . $item->idvendor ) }}" class="btn btn-warning btn-sm">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a href="{{ url('vendor/'.$item->id.'/edit') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ url('vendor/'.$item->idvendor.'/edit') }}" class="btn btn-primary btn-sm">
                                 <i class="fa fa-pencil"></i>
                                 </a>
-                                <form action="{{ url('vendor/' . $item->id) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
+                                <form action="{{ url('vendor/' . $item->idvendor) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger btn-sm">

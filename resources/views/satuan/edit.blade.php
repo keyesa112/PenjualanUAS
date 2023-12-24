@@ -51,7 +51,7 @@
                     
                     <div class="row">
                         <div class="col-md-4 offset-md-4">
-                            <form action="{{ url('satuan/'. $satuans->id )}}" method="post">
+                            <form action="{{ url('satuan/'. $satuans->idsatuan )}}" method="post">
                                 @method('patch')
                                 @csrf
                                 <div class="form-group">

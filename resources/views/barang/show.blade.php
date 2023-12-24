@@ -57,7 +57,7 @@
                                     </tr>
                                     <tr>
                                         <th>Status</th>
-                                        <td>{{ $barangs->tatus_aktif }}</td>
+                                        <td>{{ $barangs->status }}</td>
                                     </tr>
                                     <tr>
                                         <th>Harga</th>

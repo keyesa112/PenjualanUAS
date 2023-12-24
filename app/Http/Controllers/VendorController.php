@@ -37,31 +37,31 @@ class VendorController extends Controller
     public function store(Request $request)
     {
         // DB::table('vendor')->insert([
-        //     'id' => $request -> id,
+        //     'idvendor' => $request -> idvendor,
         //     'nama_vendor' => $request -> name,
         //     'badan_hukum' => $request -> badan,
-        //     'status_aktif' => $request -> status
+        //     'status' => $request -> status
         // ]);
 
          //native
-         $id = $request->id;
+         $idvendor = $request->idvendor;
          $nama_vendor = $request->name;
          $badan_hukum = $request -> badan;
-         $status_aktif = $request -> status;
+         $status = $request -> status;
  
          // Execute the native SQL query to insert data
-         DB::insert("INSERT INTO vendor (id, nama_vendor, badan_hukum, status_aktif) 
-                     VALUES (?, ?, ?, ?)", [$id, $nama_vendor, $badan_hukum, $status_aktif]);
+         DB::insert("INSERT INTO vendor (idvendor, nama_vendor, badan_hukum, status) 
+                     VALUES (?, ?, ?, ?)", [$idvendor, $nama_vendor, $badan_hukum, $status]);
         return redirect('vendor')->with('status', 'Vendor berhasil ditambahkan!');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($idvendor)
     {
         $vendors = DB::table('vendor')
-                    ->where('id', $id)
+                    ->where('idvendor', $idvendor)
                     ->first();
         return view('vendor/show', compact('vendors'));
     }
@@ -69,10 +69,10 @@ class VendorController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit($idvendor)
     {
         $vendors = DB::table('vendor')
-                ->where('id', $id)
+                ->where('idvendor', $idvendor)
                 ->first();
         return view('vendor/edit', compact('vendors'));    
     }
@@ -80,21 +80,21 @@ class VendorController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request,$id)
+    public function update(Request $request,$idvendor)
     {
-        // $vendors = DB::table('vendor')->where('id', $id)
+        // $vendors = DB::table('vendor')->where('idvendor', $idvendor)
         // ->update([
         //     'nama_vendor' => $request -> name,
         //     'badan_hukum' => $request -> badan,
-        //     'status_aktif' => $request -> status
+        //     'status' => $request -> status
         // ]);
 
         //native
-        DB::update('UPDATE vendor SET nama_vendor = ?, badan_hukum = ?, status_aktif = ? WHERE id = ?', [
+        DB::update('UPDATE vendor SET nama_vendor = ?, badan_hukum = ?, status = ? WHERE idvendor = ?', [
             $request->name,
             $request->badan,
             $request->status,
-            $id
+            $idvendor
         ]);
         return redirect('vendor')->with('status', 'Vendor berhasil diubah!');
     }
@@ -102,10 +102,10 @@ class VendorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($idvendor)
     {
         DB::table('vendor')
-        ->where('id', $id)
+        ->where('idvendor', $idvendor)
         ->update(['deleted_at' => now()]);
 
         $records = DB::table('vendor')

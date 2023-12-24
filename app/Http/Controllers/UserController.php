@@ -23,7 +23,7 @@ class UserController extends Controller
         //native
         $users = DB::table('users')
                 ->select('users.*', 'roles.nama_role')
-                ->join('roles', 'users.idRole', '=', 'roles.id_role')
+                ->join('roles', 'users.idrole', '=', 'roles.idrole')
                 ->whereNull('users.deleted_at')
                 ->get();
             
@@ -50,7 +50,7 @@ class UserController extends Controller
     {
         // return $request;
         // DB::table('users')->insert([
-        //     'id_users' => $request -> id,
+        //     'iduser' => $request -> id,
         //     'username' => $request -> name,
         //     'email' => $request -> email,
         //     'password' => $request -> password,
@@ -65,7 +65,7 @@ class UserController extends Controller
         $idRole = $request->idRole;
 
         // Execute the native SQL query to insert a new record
-        DB::insert("INSERT INTO users (id_users, username, email, password, idRole) 
+        DB::insert("INSERT INTO users (iduser, username, email, password, idRole) 
                 VALUES (?, ?, ?, ?, ?)", [$idUsers, $username, $email, $password, $idRole]);
 
         return redirect('user')->with('status', 'User berhasil ditambahkan!');
@@ -76,7 +76,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        $users = User::where('id_users', $id)->get();
+        $users = User::where('iduser', $id)->get();
         $users = $users[0];
         // return $users;
         return view('users/show', compact('users'));
@@ -88,7 +88,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $roles = DB::table('roles')->get();
-        $users = DB::table('users')->where('id_users', $id)->first();
+        $users = DB::table('users')->where('iduser', $id)->first();
         return view('users/edit', compact('users','roles'));    
     }
 
@@ -106,7 +106,7 @@ class UserController extends Controller
         // ]);
 
          //native
-            DB::update('UPDATE users SET username = ?, email = ?, password = ?, idRole = ? WHERE id_users = ?', [
+            DB::update('UPDATE users SET username = ?, email = ?, password = ?, idRole = ? WHERE iduser = ?', [
                 $request->name,
                 $request->email,
                 $request->password,
@@ -123,7 +123,7 @@ class UserController extends Controller
     public function destroy($id)
     {
         DB::table('users')
-            ->where('id_users', $id)
+            ->where('iduser', $id)
             ->update(['deleted_at' => now()]);
 
         $records = DB::table('users')

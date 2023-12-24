@@ -32,7 +32,7 @@ class RoleController extends Controller
     public function addProcess(Request $request)
     {
         // DB::table('roles')->insert([
-        //     'id_role' => $request -> id,
+        //     'idrole' => $request -> id,
         //     'nama_role' => $request -> name
         // ]);
 
@@ -41,7 +41,7 @@ class RoleController extends Controller
         $namaRole = $request->name;
 
         // Execute the native SQL query to insert data
-        DB::insert("INSERT INTO roles (id_role, nama_role) 
+        DB::insert("INSERT INTO roles (idrole, nama_role) 
                     VALUES (?, ?)", [$idRole, $namaRole]);
 
         return redirect('role')->with('status', 'Role berhasil ditambahkan!');
@@ -50,16 +50,16 @@ class RoleController extends Controller
     public function edit($id)
     {
         $role = DB::table('roles')
-                ->where('id_role', $id)
+                ->where('idrole', $id)
                 ->first();
-                // $role = DB::select("SELECT * FROM roles WHERE id_role = ?", [$id]);
+                // $role = DB::select("SELECT * FROM roles WHERE idrole = ?", [$id]);
         return view('role/edit', compact('role'));
     }
 
 
     public function editProcess(Request $request, $id)
     {
-        // $role = DB::table('roles')->where('id_role', $id)
+        // $role = DB::table('roles')->where('idrole', $id)
         //         ->update([
         //         'nama_role' => $request -> name  
         // ]);
@@ -69,7 +69,7 @@ class RoleController extends Controller
 
         // Execute the native SQL query to update the record
         DB::update("UPDATE roles SET nama_role = ? 
-                    WHERE id_role = ?", [$request->name, $id]);
+                    WHERE idrole = ?", [$request->name, $id]);
 
         return redirect('role')->with('status', 'Role berhasil diubah!');
     }
@@ -77,7 +77,7 @@ class RoleController extends Controller
     public function delete($id)
     {
         DB::table('roles')
-            ->where('id_role', $id)
+            ->where('idrole', $id)
             ->update(['deleted_at' => now()]);
 
         $records = DB::table('roles')
@@ -90,7 +90,7 @@ class RoleController extends Controller
     //     $pdo = DB::connection()->getPdo();
 
     // // Execute a raw SQL query to update the 'deleted_at' field
-    // $sql = "UPDATE roles SET deleted_at = :deleted_at WHERE id_role = :id";
+    // $sql = "UPDATE roles SET deleted_at = :deleted_at WHERE idrole = :id";
     // $stmt = $pdo->prepare($sql);
     // $stmt->execute([
     //     'deleted_at' => now(),
@@ -110,16 +110,9 @@ class RoleController extends Controller
 
     public function show($id)
     {
-        $role = DB::table('roles')->where('id_role', $id)->first();
+        $role = DB::table('roles')->where('idrole', $id)->first();
         // return $users;
         return view('role/show', compact('role'));
 
-    }
-
-    public function showRegistrationForm()
-    {
-    $roles = Role::all(); // Retrieve all roles from the database
-
-    return view('register', ['role' => $roles]);
     }
 }

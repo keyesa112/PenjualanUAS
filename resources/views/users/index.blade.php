@@ -61,13 +61,13 @@
                              <td>{{ $item->email }}</td>
                              <td>{{ $item->nama_role }}</td>
                              <td class="text-center">
-                                <a href="{{ url('user/' . $item->id_users ) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ url('user/' . $item->iduser ) }}" class="btn btn-warning btn-sm">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a href="{{ url('user/'.$item->id_users.'/edit') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ url('user/'.$item->iduser.'/edit') }}" class="btn btn-primary btn-sm">
                                 <i class="fa fa-pencil"></i>
                                 </a>
-                                <form action="{{ url('user/' . $item->id_users) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
+                                <form action="{{ url('user/' . $item->iduser) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger btn-sm">

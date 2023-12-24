@@ -53,7 +53,7 @@
                                     </tr>
                                     <tr>
                                         <th>Status</th>
-                                        <td>{{ $satuans->status_aktif}}</td>
+                                        <td>{{ $satuans->status}}</td>
                                     </tr>
                                 </tbody>
                             </table>

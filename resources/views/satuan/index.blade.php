@@ -57,15 +57,15 @@
                          <tr>
                              <td>{{ $loop->iteration }}</td>
                              <td>{{ $item->nama_satuan }}</td>
-                             <td>{{ $item->status_aktif }}</td>
+                             <td>{{ $item->status }}</td>
                              <td class="text-center">
-                                <a href="{{ url('satuan/' . $item->id ) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ url('satuan/' . $item->idsatuan ) }}" class="btn btn-warning btn-sm">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a href="{{ url('satuan/'.$item->id.'/edit') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ url('satuan/'.$item->idsatuan.'/edit') }}" class="btn btn-primary btn-sm">
                                 <i class="fa fa-pencil"></i>
                                 </a>
-                                <form action="{{ url('satuan/' . $item->id) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
+                                <form action="{{ url('satuan/' . $item->idsatuan) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger btn-sm">

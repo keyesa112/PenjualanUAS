@@ -39,14 +39,14 @@ class SatuanController extends Controller
     public function store(Request $request)
     {
         // DB::table('satuan')->insert([
-        //     'id' => $request -> id,
+        //     'idsatuan' => $request -> idsatuan,
         //     'nama_satuan' => $request -> name,
-        //     'status_aktif' => $request -> status
+        //     'status' => $request -> status
         // ]);
 
         //native
-        DB::insert('INSERT INTO satuan (id, nama_satuan, status_aktif) VALUES (?, ?, ?)', [
-            $request->id,
+        DB::insert('INSERT INTO satuan (idsatuan, nama_satuan, status) VALUES (?, ?, ?)', [
+            $request->idsatuan,
             $request->name,
             $request->status,
         ]);
@@ -56,10 +56,10 @@ class SatuanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($idsatuan)
     {
         $satuans = DB::table('satuan')
-                    ->where('id', $id)
+                    ->where('idsatuan', $idsatuan)
                     ->first();
         return view('satuan/show', compact('satuans'));
     }
@@ -67,10 +67,10 @@ class SatuanController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit($idsatuan)
     {
         $satuans = DB::table('satuan')
-                    ->where('id', $id)
+                    ->where('idsatuan', $idsatuan)
                     ->first();
         return view('satuan/edit', compact('satuans'));    
     }
@@ -78,19 +78,19 @@ class SatuanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idsatuan)
     {
-        // $satuans = DB::table('satuan')->where('id', $id)
+        // $satuans = DB::table('satuan')->where('idsatuan', $idsatuan)
         // ->update([
         //     'nama_satuan' => $request -> name,
-        //     'status_aktif' => $request -> status
+        //     'status' => $request -> status
         // ]);
 
         //native
-        DB::update('UPDATE satuan SET nama_satuan = ?, status_aktif = ? WHERE id = ?', [
+        DB::update('UPDATE satuan SET nama_satuan = ?, status = ? WHERE idsatuan = ?', [
             $request->name,
             $request->status,
-            $id,
+            $idsatuan,
         ]);
         return redirect('satuan')->with('status', 'Satuan berhasil diubah!');
     }
@@ -98,10 +98,10 @@ class SatuanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($idsatuan)
     {
         DB::table('satuan')
-            ->where('id', $id)
+            ->where('idsatuan', $idsatuan)
             ->update(['deleted_at' => now()]);
 
         $records = DB::table('satuan')

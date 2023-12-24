@@ -19,7 +19,7 @@ class BarangController extends Controller
 
         //native
         $barangs = DB::table('barang')
-                    ->join('satuan', 'barang.idSatuan', '=', 'satuan.id')
+                    ->join('satuan', 'barang.idsatuan', '=', 'satuan.idsatuan')
                     ->select('barang.*', 'satuan.nama_satuan')
                     ->whereNull('barang.deleted_at')
                     ->get();
@@ -42,22 +42,22 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         // DB::table('barang')->insert([
-        //     'id' => $request -> id,
+        //     'idbarang' => $request -> idbarang,
         //     'jenis' => $request -> jenis,
         //     'nama' => $request -> name,
-        //     'tatus_aktif' => $request -> status,
+        //     'status' => $request -> status,
         //     'harga' => $request -> harga,
-        //     'idSatuan' => $request -> idSatuan
+        //     'idsatuan' => $request -> idsatuan
         // ]);
 
         //native
-        DB::insert('INSERT INTO barang (id, jenis, nama, tatus_aktif, harga, idSatuan) VALUES (?, ?, ?, ?, ?, ?)', [
-            $request->id,
+        DB::insert('INSERT INTO barang (idbarang, jenis, nama, status, harga, idsatuan) VALUES (?, ?, ?, ?, ?, ?)', [
+            $request->idbarang,
             $request->jenis,
             $request->name,
             $request->status,
             $request->harga,
-            $request->idSatuan,
+            $request->idsatuan,
         ]);        
         return redirect('barang')->with('status', 'Barang berhasil ditambahkan!');
     }
@@ -65,9 +65,9 @@ class BarangController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($idbarang)
     {
-        $barangs = Barang::where('id', $id)->get();
+        $barangs = Barang::where('idbarang', $idbarang)->get();
         $barangs = $barangs[0];
         // return $users;
         return view('barang/show', compact('barangs'));
@@ -76,9 +76,9 @@ class BarangController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
+    public function edit($idbarang)
     {
-        $barangs = DB::table('barang')->where('id', $id)->first();
+        $barangs = DB::table('barang')->where('idbarang', $idbarang)->first();
         $satuans = Satuan::all(); 
         return view('barang/edit', compact('barangs','satuans')); 
     }
@@ -86,25 +86,25 @@ class BarangController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $idbarang)
     {
-        // $barangs = DB::table('barang')->where('id', $id)
+        // $barangs = DB::table('barang')->where('idbarang', $idbarang)
         // ->update([
         //     'jenis' => $request -> jenis,
         //     'nama' => $request -> name,
-        //     'tatus_aktif' => $request -> status,
+        //     'status' => $request -> status,
         //     'harga' => $request -> harga,
-        //     'idSatuan' => $request -> idSatuan
+        //     'idsatuan' => $request -> idsatuan
         // ]);
 
         //native
-        DB::update('UPDATE barang SET jenis = ?, nama = ?, tatus_aktif = ?, harga = ?, idSatuan = ? WHERE id = ?', [
+        DB::update('UPDATE barang SET jenis = ?, nama = ?, status = ?, harga = ?, idsatuan = ? WHERE idbarang = ?', [
             $request->jenis,
             $request->name,
             $request->status,
             $request->harga,
-            $request->idSatuan,
-            $id, 
+            $request->idsatuan,
+            $idbarang, 
         ]);
         return redirect('barang')->with('status', 'Barang berhasil diubah!');
     }
@@ -112,10 +112,10 @@ class BarangController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($idbarang)
     {
         DB::table('barang')
-            ->where('id', $id)
+            ->where('idbarang', $idbarang)
             ->update(['deleted_at' => now()]);
 
         $records = DB::table('barang')
@@ -123,19 +123,5 @@ class BarangController extends Controller
             ->get();
 
         return redirect('barang')->with('status', 'Barang berhasil dihapus!');
-    }
-
-    public function caribarang(Request $request)
-    {
-        // print_r($request->all());
-        $brg = $request->barangs;
-        
-        $barangs = DB::table('barang')
-        ->where('nama', 'like', '%' . $brg . '%') // Mencari nama barang yang mengandung kata kunci
-        ->whereNull('deleted_at') // Pastikan data tidak terhapus
-        ->get();
-
-        print_r($barangs);
-
     }
 }

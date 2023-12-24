@@ -51,7 +51,7 @@
                     
                     <div class="row">
                         <div class="col-md-4 offset-md-4">
-                            <form action="{{ url('user/' . $users->id_users) }}" method="post">
+                            <form action="{{ url('user/' . $users->iduser) }}" method="post">
                                 @method('PATCH') 
                                 @csrf
                                 <div class="form-group">
@@ -68,12 +68,12 @@
                             </div>
                             <div class="form-group">
                                 <label for="role">Role</label>
-                                <select name="idRole" class="form-control" value="{{ $users->idRole}}" required>
+                                <select name="idRole" class="form-control" value="{{ $users->idrole }}" required>
                                     <option value="">Pilih Role</option>
-                                    @foreach($roles as $item)
-                                            <option value="{{ $item->id_role }}">{{ $item->nama_role}}</option>
+                                    @foreach($roles->whereNull('deleted_at') as $item)
+                                        <option value="{{ $item->idrole }}">{{ $item->nama_role }}</option>
                                     @endforeach
-                                </select>
+                                </select>                                
                             </div>
                                 <button type="submit" class="btn btn-success">Save</button>
                             </form>

@@ -51,7 +51,7 @@
                     
                     <div class="row">
                         <div class="col-md-4 offset-md-4">
-                            <form action="{{ url('barang/'. $barangs->id )}}" method="post">
+                            <form action="{{ url('barang/'. $barangs->idbarang )}}" method="post">
                                 @method('patch')
                                 @csrf
                                 <div class="form-group">
@@ -80,12 +80,12 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="satuan">Satuan</label>
-                                    <select name="idSatuan" class="form-control" required>
+                                    <select name="idbarang" class="form-control" required>
                                         <option value="">Pilih Satuan</option>
-                                        @foreach($satuans as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama_satuan}}</option>
+                                        @foreach($satuans->where('status', 1) as $item)
+                                            <option value="{{ $item->idsatuan }}">{{ $item->nama_satuan }}</option>
                                         @endforeach
-                                    </select>
+                                    </select>                                                                       
                                 </div>                                                
                                 <button type="submit" class="btn btn-success">Save</button>
                             </form>

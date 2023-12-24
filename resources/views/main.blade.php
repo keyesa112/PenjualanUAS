@@ -59,8 +59,41 @@
                 </li>
                 <h3 class="menu-title">Transaction</h3><!-- /.menu-title -->
                 <li>
+
+                    {{-- pangadaan --}}
+                    <li class="menu-item-has-children dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list-alt"></i>Transaksi Pengadaan</a>
+                    <ul class="sub-menu children dropdown-menu">
+                            <li><i class="fa fa-plus-square"></i><a href="{{ url('pengadaan') }}">Pengadaan</a></li>
+                            <li><i class="fa fa-plus-square"></i><a href="{{ url('detpengadaan') }}">Det. Pengadaan</a></li>
+                    </ul>
+
+                    {{-- penjualan --}}
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list-alt"></i>Transaksi Penjualan</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-square"></i><a href="{{ url('penjualan') }}">Penjualan</a></li>
+                        <li><i class="fa fa-plus-square"></i><a href="ui-.html">Det. Penjualan</a></li>
+                        <li><i class="fa fa-plus-square"></i><a href="ui-buttons.html">Marg. Penjualan</a></li>
+                        <li><i class="fa fa-plus-square"></i><a href="ui-buttons.html">Kartu Stok</a></li>
+                    </ul>
+
+                    {{-- penerimaan --}}
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list-alt"></i>Transaksi Penerimaan</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-square"></i><a href="{{ url('penerimaan') }}">Penerimaan</a></li>
+                        <li><i class="fa fa-plus-square"></i><a href="{{ url('detpenerimaan') }}">Det. Penerimaan</a></li>
+                    </ul>
                     
-                </ul>
+                    {{-- Retur --}}
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list-alt"></i>Transaksi Retur</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-square"></i><a href="{{ url('retur') }}">Retur</a></li>
+                        <li><i class="fa fa-plus-square"></i><a href="{{ url('detretur') }}">Det. Retur</a></li>
+                    </ul>
+                        
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside><!-- /#left-panel -->
@@ -71,13 +104,6 @@
                 <div class="col-sm-7">
                     <a id="menuToggle" class="menutoggle pull-left"><i class="fa fa fa-tasks"></i></a>
                     <div class="header-left">
-                        <button class="search-trigger"><i class="fa fa-search"></i></button>
-                        <div class="form-inline">
-                            <form class="search-form">
-                                <input class="form-control mr-sm-2" type="text" placeholder="Search ..." aria-label="Search">
-                                <button class="search-close" type="submit"><i class="fa fa-close"></i></button>
-                            </form>
-                        </div>
                         <div class="dropdown for-notification">
                           <button class="btn btn-secondary dropdown-toggle" type="button" id="notification" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             <i class="fa fa-bell"></i>
@@ -85,14 +111,6 @@
                           </button>
                           <div class="dropdown-menu" aria-labelledby="notification">
                             <p class="red">You have 3 Notification</p>
-                            <a class="dropdown-item media bg-flat-color-1" href="#">
-                                <i class="fa fa-check"></i>
-                                <p>Server #1 overloaded.</p>
-                            </a>
-                            <a class="dropdown-item media bg-flat-color-4" href="#">
-                                <i class="fa fa-info"></i>
-                                <p>Server #2 overloaded.</p>
-                            </a>
                           </div>
                         </div>
                     </div>

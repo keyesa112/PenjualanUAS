@@ -2,11 +2,6 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
-use App\Http\Controllers\RegisterController;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\HomeController;
-
-
  
 /*
 |--------------------------------------------------------------------------
@@ -19,25 +14,16 @@ use App\Http\Controllers\HomeController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome', ['title' => 'Praktikum Basis Data']);
-// });
-
-//register
-Route::get('/', 'App\Http\Controllers\RegisterController@showRegistrationForm');
-Route::post('/', 'App\Http\Controllers\RegisterController@register')->name('register');
-
-//login
-Route::get('/login', 'App\Http\Controllers\LoginController@showLoginForm');
-Route::post('/login', 'App\Http\Controllers\LoginController@login')->name('login');
-
+Route::get('/', function () {
+    return view('welcome', ['title' => 'Praktikum Basis Data']);
+});
 
 //home
-Route::get('/home', 'App\Http\Controllers\HomeController@index')->name('home')-> middleware('auth');
-
+Route::get('home', function () {
+    return view('home');
+});
 
 //role
-Route::group(['middleware' => ['auth','ceklevel:user']], function (){
 Route::get('/role', 'App\Http\Controllers\RoleController@data'); //data
 Route::get('/role/add', 'App\Http\Controllers\RoleController@add'); //add
 Route::post('/role', 'App\Http\Controllers\RoleController@addProcess'); //prosesadding
@@ -45,23 +31,37 @@ Route::get('/role/edit/{id}', 'App\Http\Controllers\RoleController@edit'); //edi
 Route::patch('/role/{id}', 'App\Http\Controllers\RoleController@editProcess'); //prosesediting
 Route::delete('/role/{id}', 'App\Http\Controllers\RoleController@delete'); //delete
 Route::get('role/{id}', 'App\Http\Controllers\RoleController@show')->name('role.show'); //show
-});
 
 
 //user
-Route::resource('user', 'App\Http\Controllers\UserController')-> middleware('auth');
+Route::resource('user', 'App\Http\Controllers\UserController');
 
 //satuan
-Route::resource('satuan', 'App\Http\Controllers\SatuanController')-> middleware('auth');
+Route::resource('satuan', 'App\Http\Controllers\SatuanController');
 
 //barang
-Route::group(['middleware' => ['auth','ceklevel:user']], function (){
 Route::resource('barang', 'App\Http\Controllers\BarangController');
-Route::post('/caribarang', 'App\Http\Controllers\BarangController@caribarang'); //prosesadding
-Route::get('cari', function () {
-    return view('barang/cari');
-});
-});
 
 //vendor
-Route::resource('vendor', 'App\Http\Controllers\VendorController')-> middleware('auth');
+Route::resource('vendor', 'App\Http\Controllers\VendorController');
+
+//pengadaan
+Route::resource('pengadaan', 'App\Http\Controllers\PengadaanController');
+
+//penjualan
+Route::resource('penjualan', 'App\Http\Controllers\PenjualanController');
+
+//det.pengadaan
+Route::resource('detpengadaan', 'App\Http\Controllers\DetailPengadaanController');
+
+//penerimaan
+Route::resource('penerimaan', 'App\Http\Controllers\PenerimaanController');
+
+//det.penerimaan
+Route::resource('detpenerimaan', 'App\Http\Controllers\DetailPenerimaanController');
+
+//retur
+Route::resource('retur', 'App\Http\Controllers\ReturController');
+
+//det.retur
+Route::resource('detretur', 'App\Http\Controllers\DetailReturController');

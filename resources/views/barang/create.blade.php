@@ -79,10 +79,10 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="satuan">Satuan</label>
-                                    <select name="idSatuan" class="form-control" required>
+                                    <select name="idsatuan" class="form-control" required>
                                         <option value="">Pilih Satuan</option>
-                                        @foreach($satuans as $item)
-                                                <option value="{{ $item->id }}">{{ $item->nama_satuan}}</option>
+                                        @foreach($satuans->where('status', 1) as $item)
+                                            <option value="{{ $item->idsatuan }}">{{ $item->nama_satuan }}</option>
                                         @endforeach
                                     </select>
                                 </div>

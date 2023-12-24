@@ -42,9 +42,6 @@
                     <a href="{{ url('barang/create') }}" class="btn btn-success btn-sm">
                         <i class="fa fa-plus"></i> Add
                     </a>
-                    <a href="{{ url('/cari') }}" class="btn btn-primary btn-sm">
-                        <i class="fa fa-search"></i> Search
-                    </a>
                 </div>
             </div>
                 <div class="card-body table-responsive">
@@ -66,17 +63,17 @@
                              <td>{{ $loop->iteration }}</td>
                              <td>{{ $item->jenis }}</td>
                              <td>{{ $item->nama }}</td>
-                             <td>{{ $item->tatus_aktif }}</td>
+                             <td>{{ $item->status }}</td>
                              <td>{{ $item->harga }}</td>
                              <td>{{ $item->nama_satuan }}</td>
                              <td class="text-center">
-                                <a href="{{ url('barang/' . $item->id ) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ url('barang/' . $item->idbarang ) }}" class="btn btn-warning btn-sm">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a href="{{ url('barang/'.$item->id.'/edit') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ url('barang/'.$item->idbarang.'/edit') }}" class="btn btn-primary btn-sm">
                                 <i class="fa fa-pencil"></i>
                                 </a>
-                                <form action="{{ url('barang/' . $item->id) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
+                                <form action="{{ url('barang/' . $item->idbarang) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger btn-sm">
