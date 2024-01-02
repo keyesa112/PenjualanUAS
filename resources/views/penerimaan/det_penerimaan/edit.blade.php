@@ -8,7 +8,7 @@
     <div class="col-sm-4">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>Pengadaan</h1>
+                <h1>Penerimaan</h1>
             </div>
         </div>
     </div>
@@ -17,7 +17,7 @@
             <div class="page-title">
                 <ol class="breadcrumb text-right">
                     <li>
-                        <a href="">vendor</a>
+                        <a href="">Penerimaan</a>
                     </li>
                     <li class="active">Edit</li>
                 </ol>
@@ -39,7 +39,7 @@
         <div class="card">
             <div class="card-header">
                 <div class="pull-left">
-                    <strong>Data vendor</strong>
+                    <strong>Data Penerimaan</strong>
                 </div>
                 <div class="pull-right">
                     <a href="{{ url('vendor') }}" class="btn btn-secondry btn-sm">
@@ -59,30 +59,39 @@
                                     <select name="idpenerimaan" id="idpenerimaan" class="form-control">
                                         <option value="">Pilih Penerimaan</option>
                                         @foreach($penerimaan as $item)
-                                            <option value="{{ $item->idpenerimaan }}">{{ $item->created_at }}</option>
+                                            <option value="{{ $item->idpenerimaan }}"
+                                                @if (old('idpenerimaan', $detpenerimaan->idpenerimaan) == $item->idpenerimaan) 
+                                                    selected 
+                                                @endif>{{ $item->created_at }}
+                                            </option>
                                         @endforeach
                                     </select>            
-                                </div>
+                                </div>                                
                                 <div class="form-group">
                                     <label>Nama Barang</label>
                                     <select name="idBarang" class="form-control" required>
                                         <option value="">Pilih Barang</option>
                                         @foreach ($barangs as $barang)
-                                        <option value="{{ $barang->idbarang }}" data-harga="{{ $barang->harga }}">{{ $barang->nama }}</option>
+                                            <option value="{{ $barang->idbarang }}" 
+                                                @if (old('idBarang', $detpenerimaan->barang_idbarang) == $barang->idbarang) 
+                                                    selected 
+                                                @endif 
+                                                data-harga="{{ $barang->harga }}">{{ $barang->nama }}
+                                            </option>
                                         @endforeach
                                     </select>                                    
-                                </div> 
+                                </div>                                
                                 <div class="form-group">
                                     <label>Harga</label>
-                                    <input type="text" name="subtotal" id="subtotal" class="form-control" autofocus required>
+                                    <input type="text" name="subtotal" id="subtotal" class="form-control" autofocus required value="{{ old('subtotal', $detpenerimaan->harga_satuan_terima) }}">
                                 </div>
                                 <div class="form-group">
                                     <label>Jumlah Terima</label>
-                                    <input type="text" name="ppn" id="ppn" class="form-control" autofocus required>
+                                    <input type="text" name="ppn" id="ppn" class="form-control" autofocus required value="{{ old('ppn', $detpenerimaan->jumlah_terima) }}">
                                 </div> 
                                 <div class="form-group">
                                     <label>Sub Total</label>
-                                    <input type="text" name="total" id="total" class="form-control" readonly>
+                                    <input type="text" name="total" id="total" class="form-control" readonly value="{{ old('total', $detpenerimaan->sub_total_terima) }}">
                                 </div>                                                                                                                                           
                                 <button type="submit" class="btn btn-success">Save</button>
                             </form>

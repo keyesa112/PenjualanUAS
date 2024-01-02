@@ -14,9 +14,13 @@ use App\Http\Controllers\RoleController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome', ['title' => 'Praktikum Basis Data']);
-});
+//register
+Route::get('/signup', 'App\Http\Controllers\RegisterController@showRegistrationForm');
+Route::post('/signup', 'App\Http\Controllers\RegisterController@register')->name('register');
+
+//login
+Route::get('/', 'App\Http\Controllers\LoginController@showLoginForm');
+Route::post('/', 'App\Http\Controllers\LoginController@login')->name('login');
 
 //home
 Route::get('home', function () {
@@ -48,9 +52,6 @@ Route::resource('vendor', 'App\Http\Controllers\VendorController');
 //pengadaan
 Route::resource('pengadaan', 'App\Http\Controllers\PengadaanController');
 
-//penjualan
-Route::resource('penjualan', 'App\Http\Controllers\PenjualanController');
-
 //det.pengadaan
 Route::resource('detpengadaan', 'App\Http\Controllers\DetailPengadaanController');
 
@@ -65,3 +66,15 @@ Route::resource('retur', 'App\Http\Controllers\ReturController');
 
 //det.retur
 Route::resource('detretur', 'App\Http\Controllers\DetailReturController');
+
+//penjualan
+Route::resource('penjualan', 'App\Http\Controllers\PenjualanController');
+
+//marg.penjualan
+Route::resource('margin', 'App\Http\Controllers\MarginPenjualanController');
+
+//det.penjualan
+Route::resource('detpenjualan', 'App\Http\Controllers\DetailPenjualanController');
+
+//kartustok
+Route::resource('kartustok', 'App\Http\Controllers\KartuStokController');

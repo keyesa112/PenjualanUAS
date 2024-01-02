@@ -1,6 +1,6 @@
 @extends('main')
 
-@section('title','penjualan')
+@section('title','Margin Penjualan')
 
 
 @section('breadcrumbs')
@@ -8,7 +8,7 @@
     <div class="col-sm-4">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>Penjualan</h1>
+                <h1>Margin</h1>
             </div>
         </div>
     </div>
@@ -17,7 +17,7 @@
             <div class="page-title">
                 <ol class="breadcrumb text-right">
                     <li>
-                        <a href="{{ url('penjualan/create') }}">Penjualan</a>
+                        <a href="{{ url('margin/create') }}">Margin Penjualan</a>
                     </li>
                     <li class="active">Data</li>
                 </ol>
@@ -30,15 +30,14 @@
 @section('content')
 <div class="content mt-3">
  <!-- Form untuk pencarian barang dan filter vendor -->
-</div>
     <div class="animated fadeIn">
         <div class="card">
             <div class="card-header">
                 <div class="pull-left">
-                    <strong>Data Penjualan</strong>
+                    <strong>Margin Penjualan</strong>
                 </div>
                 <div class="pull-right">
-                    <a href="{{ url('penjualan/create') }}" class="btn btn-success btn-sm">
+                    <a href="{{ url('margin/create') }}" class="btn btn-success btn-sm">
                         <i class="fa fa-plus"></i> Add
                     </a>
                 </div>
@@ -48,32 +47,31 @@
                         <thead>
                              <tr>
                                  <th>ID</th>
-                                 <th>Timestamp</th>
-                                 <th>Sub Total</th>
-                                 <th>Margin (%)</th>
-                                 <th>PPN(%)</th>
-                                 <th>Total</th>
-                                 <th>User<th>
+                                 <th>Created at</th>
+                                 <th>Margin Penjualan (%)</th>
+                                 <th>Status</th>
+                                 <th>User</th>
+                                 <th>Updated at</th>
+                                 <th></th>
                              </tr>
                         </thead>
                         <tbody>
-                         @foreach ($penjualan as $item)
+                         @foreach ($margin as $item)
                          <tr>
                              <td>{{ $loop->iteration }}</td>
                              <td>{{ $item->created_at }}</td>
-                             <td>{{ $item->subtotal_nilai }}</td>
                              <td>{{ $item->persen }}</td>
-                             <td>{{ $item->ppn }}</td>
-                             <td>{{ $item->total_nilai }}</td>
+                             <td>{{ $item->status }}</td>
                              <td>{{ $item->username }}</td>
+                             <td>{{ $item->updated_at }}</td>
                              <td class="text-center">
-                                <a href="{{ url('penjualan/' . $item->idpenjualan ) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ url('margin/' . $item->idmargin_penjualan ) }}" class="btn btn-warning btn-sm">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a href="{{ url('penjualan/'.$item->idpenjualan.'/edit') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ url('margin/'.$item->idmargin_penjualan.'/edit') }}" class="btn btn-primary btn-sm">
                                 <i class="fa fa-pencil"></i>
                                 </a>
-                                <form action="{{ url('penjualan/' . $item->idpenjualan) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
+                                <form action="{{ url('margin/' . $item->idmargin_penjualan) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger btn-sm">

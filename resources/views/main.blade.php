@@ -68,16 +68,6 @@
                             <li><i class="fa fa-plus-square"></i><a href="{{ url('detpengadaan') }}">Det. Pengadaan</a></li>
                     </ul>
 
-                    {{-- penjualan --}}
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list-alt"></i>Transaksi Penjualan</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-plus-square"></i><a href="{{ url('penjualan') }}">Penjualan</a></li>
-                        <li><i class="fa fa-plus-square"></i><a href="ui-.html">Det. Penjualan</a></li>
-                        <li><i class="fa fa-plus-square"></i><a href="ui-buttons.html">Marg. Penjualan</a></li>
-                        <li><i class="fa fa-plus-square"></i><a href="ui-buttons.html">Kartu Stok</a></li>
-                    </ul>
-
                     {{-- penerimaan --}}
                     <li class="menu-item-has-children dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list-alt"></i>Transaksi Penerimaan</a>
@@ -92,6 +82,16 @@
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="fa fa-plus-square"></i><a href="{{ url('retur') }}">Retur</a></li>
                         <li><i class="fa fa-plus-square"></i><a href="{{ url('detretur') }}">Det. Retur</a></li>
+                    </ul>
+
+                    {{-- penjualan --}}
+                    <li class="menu-item-has-children dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list-alt"></i>Transaksi Penjualan</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-square"></i><a href="{{ url('penjualan') }}">Penjualan</a></li>
+                        <li><i class="fa fa-plus-square"></i><a href="{{ url('detpenjualan') }}">Det. Penjualan</a></li>
+                        <li><i class="fa fa-plus-square"></i><a href="{{ url('margin') }}">Marg. Penjualan</a></li>
+                        <li><i class="fa fa-plus-square"></i><a href="{{ url('kartustok') }}">Kartu Stok</a></li>
                     </ul>
                         
             </div><!-- /.navbar-collapse -->

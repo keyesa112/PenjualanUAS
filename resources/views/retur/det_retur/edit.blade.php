@@ -66,11 +66,11 @@
                                 </div>      
                                 <div class="form-group">
                                     <label>Jumlah</label>
-                                    <input type="text" name="ppn" id="ppn" class="form-control" autofocus required>
+                                    <input type="text" name="ppn" id="ppn" class="form-control" autofocus required value="{{ old('ppn', $detretur->jumlah) }}">
                                 </div>     
                                 <div class="form-group">
                                     <label>Alasan</label>
-                                    <input type="text" name="alasan" id="alasan" class="form-control" autofocus required>
+                                    <input type="text" name="alasan" id="alasan" class="form-control" value="{{ old('alasan', $detretur->alasan) }}"  autofocus required>
                                 </div>     
                                     <div class="form-group">
                                         <label for="idretur">User</label>

@@ -40,7 +40,8 @@ class UserController extends Controller
         //native
         $roles = DB::select('SELECT *
                 FROM roles');
-        return view('users.create', compact('roles'));
+        $users = DB::table('users')->get();       
+        return view('users.create', compact('roles','users'));
     }
 
     /**

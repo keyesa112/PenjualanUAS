@@ -39,10 +39,10 @@
         <div class="card">
             <div class="card-header">
                 <div class="pull-left">
-                    <strong>Data Pengadaan</strong>
+                    <strong>Data penjualan</strong>
                 </div>
                 <div class="pull-right">
-                    <a href="{{ url('detpengadaan') }}" class="btn btn-secondry btn-sm">
+                    <a href="{{ url('detpenjualan') }}" class="btn btn-secondry btn-sm">
                         <i class="fa fa-undo"></i> Back
                     </a>
                 </div>
@@ -51,7 +51,7 @@
                     
                     <div class="row">
                         <div class="col-md-4 offset-md-4">
-                            <form action="{{ url('detpengadaan/'. $detpengadaan->iddetail_pengadaan )}}" method="post">
+                            <form action="{{ url('detpenjualan/'. $detpenjualan->iddetail_penjualan )}}" method="post">
                                 @method('patch')
                                 @csrf
                                 <div class="form-group">
@@ -60,7 +60,7 @@
                                         <option value="">Pilih Barang</option>
                                         @foreach ($barangs as $barang)
                                             <option value="{{ $barang->idbarang }}" 
-                                                @if (old('idBarang', $detpengadaan->barang_idbarang) == $barang->idbarang) 
+                                                @if (old('idBarang', $detpenjualan->idbarang) == $barang->idbarang) 
                                                     selected 
                                                 @endif 
                                                 data-harga="{{ $barang->harga }}">
@@ -71,26 +71,26 @@
                                 </div>    
                                 <div class="form-group">
                                     <label>Harga</label>
-                                    <input type="text" name="subtotal" id="subtotal" class="form-control" autofocus required  value="{{ old('subtotal', $detpengadaan->harga_satuan) }}">
+                                    <input type="text" name="subtotal" id="subtotal" class="form-control" autofocus required  value="{{ old('subtotal', $detpenjualan->harga_satuan) }}">
                                 </div>
                                 <div class="form-group">
                                     <label>Jumlah</label>
-                                    <input type="text" name="ppn" id="ppn" class="form-control" autofocus required value="{{ old('ppn', $detpengadaan->jumlah) }}">
+                                    <input type="text" name="ppn" id="ppn" class="form-control" autofocus required value="{{ old('ppn', $detpenjualan->jumlah) }}">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label>Sub Total</label>
-                                    <input type="text" name="total" id="total" class="form-control" readonly value="{{ old('total', $detpengadaan->sub_total) }}">
+                                    <input type="text" name="total" id="total" class="form-control" readonly value="{{ old('total', $detpenjualan->subtotal) }}">
                                 </div>             
                                 <div class="form-group">
-                                    <label>Pengadaan</label>
-                                    <select name="idpengadaan" class="form-control" required>
-                                        <option value="">Pilih Pengadaan</option>
-                                        @foreach ($pengadaan as $barang)
-                                            <option value="{{ $barang->idpengadaan }}"
-                                                @if (old('idpengadaan', $detpengadaan->pengadaan_idpengadaan) == $barang->idpengadaan) 
+                                    <label>Penjualan</label>
+                                    <select name="idpenjualan" class="form-control" required>
+                                        <option value="">Pilih penjualan</option>
+                                        @foreach ($penjualan as $barang)
+                                            <option value="{{ $barang->idpenjualan }}"
+                                                @if (old('idpenjualan', $detpenjualan->penjualan_idpenjualan) == $barang->idpenjualan) 
                                                     selected 
-                                                @endif>{{ $barang->timestamp }}
+                                                @endif>{{ $barang->created_at }}
                                             </option>
                                         @endforeach
                                     </select>                                    

@@ -1,14 +1,16 @@
 @extends('main')
 
 @section('title','vendor')
-
+<?php
+use Carbon\Carbon;
+?>
 
 @section('breadcrumbs')
 <div class="breadcrumbs">
     <div class="col-sm-4">
         <div class="page-header float-left">
             <div class="page-title">
-                <h1>Retur</h1>
+                <h1>Margin Penjualan</h1>
             </div>
         </div>
     </div>
@@ -17,7 +19,7 @@
             <div class="page-title">
                 <ol class="breadcrumb text-right">
                     <li>
-                        <a href="">Retur</a>
+                        <a href="">Margin</a>
                     </li>
                     <li class="active">Edit</li>
                 </ol>
@@ -39,10 +41,10 @@
         <div class="card">
             <div class="card-header">
                 <div class="pull-left">
-                    <strong>Data Retur</strong>
+                    <strong>Margin Penjualan</strong>
                 </div>
                 <div class="pull-right">
-                    <a href="{{ url('retur') }}" class="btn btn-secondry btn-sm">
+                    <a href="{{ url('margin') }}" class="btn btn-secondry btn-sm">
                         <i class="fa fa-undo"></i> Back
                     </a>
                 </div>
@@ -51,32 +53,42 @@
                     
                     <div class="row">
                         <div class="col-md-4 offset-md-4">
-                            <form action="{{ url('retur/'. $retur->idretur )}}" method="post">
+                            <form action="{{ url('margin/'. $margin->idmargin_penjualan )}}" method="post">
                                 @method('patch')
                                 @csrf
                                 <div class="form-group">
                                     <label>Timestamp</label>
-                                    <input type="datetime-local" name="timestamp" class="form-control" autofocus required value="{{ old('timestamp', $retur->created_at) }}">
-                                </div>   
+                                    <input type="datetime-local" name="timestamp" class="form-control" autofocus required value="{{ old('timestamp', Carbon::parse($margin->created_at)->format('Y-m-d\TH:i')) }}">
+                                </div>                                
                                 <div class="form-group">
-                                        <label for="idpenerimaan">Pengadaan</label>
-                                        <select name="idpenerimaan" id="idpenerimaan" class="form-control">
-                                            <option value="">Pilih Penerimaan</option>
-                                            @foreach($penerimaan as $item)
-                                                <option value="{{ $item->idpenerimaan }}">{{ $item->created_at }}</option>
-                                            @endforeach
-                                        </select>            
-                                    </div>             
+                                    <label>Margin Penjualan (%)</label>
+                                    <input type="text" name="persen" class="form-control" autofocus required value="{{ old('persen', $margin->persen) }}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="status">Status</label>
+                                    <select name="status" class="form-control" required>
+                                        <option value="">Pilih status</option>
+                                        <option value="1"{{ old('status') == 1 ? ' selected' : '' }}>Aktif</option>
+                                        <option value="0"{{ old('status') == 0 ? ' selected' : '' }}>Tidak Aktif</option>
+                                    </select>
+                                </div>               
+                                <div class="form-group">
+                                    <label for="filterUser">User</label>
+                                    <select name="filterUser" id="filterUser" class="form-control">
+                                        <option value="">Pilih User</option>
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->iduser }}"
+                                                @if (old('filterUser', $user->iduser) == $user->iduser) 
+                                                    selected 
+                                                @endif>{{ $user->username }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>                                  
                                     <div class="form-group">
-                                        <label for="filterUser">User</label>
-                                        <select name="filterUser" id="filterUser" class="form-control">
-                                            <option value="">Pilih User</option>
-                                            <!-- Diisi dengan data user yang tersedia -->
-                                            @foreach($users as $user)
-                                                <option value="{{ $user->iduser }}">{{ $user->username }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>                                                                                                                          
+                                        <label>Timestamp</label>
+                                        <input type="datetime-local" name="timestamp2" class="form-control" autofocus required value="{{ old('timestamp', $margin->created_at) }}">
+                                    </div>                                                                                                                              
                                 <button type="submit" class="btn btn-success">Save</button>
                             </form>
                         </div>

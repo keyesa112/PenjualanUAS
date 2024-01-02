@@ -56,7 +56,7 @@
                                 @csrf
                                 <div class="form-group">
                                     <label>Timestamp</label>
-                                    <input type="datetime-local" name="timestamp" class="form-control" autofocus required>
+                                    <input type="datetime-local" name="timestamp" class="form-control" autofocus required value="{{ old('timestamp', $penerimaan->created_at) }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="status">Status</label>

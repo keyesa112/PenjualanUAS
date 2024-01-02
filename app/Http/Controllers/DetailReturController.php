@@ -45,7 +45,6 @@ class DetailReturController extends Controller
      */
     public function store(Request $request)
     {
-   
         $jumlah = $request->ppn;
         $alasan = $request->alasan;
         $idretur = $request->idretur;
@@ -102,16 +101,16 @@ class DetailReturController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $iddetail_retur)
+    public function destroy(string $idmargin_penjualan)
     {
-        DB::table('detail_retur')
-        ->where('iddetail_retur', $iddetail_retur)
+        DB::table('margin_penjualan')
+        ->where('idmargin_penjualan', $idmargin_penjualan)
         ->update(['deleted_at' => now()]);
 
-        $records = DB::table('detail_retur')
+        $records = DB::table('margin_penjualan')
             ->whereNull('deleted_at')
             ->get();
 
-        return redirect('detretur')->with('status', 'Retur berhasil dihapus!');
+        return redirect('margin')->with('status', 'Margin berhasil dihapus!');
     }
 }

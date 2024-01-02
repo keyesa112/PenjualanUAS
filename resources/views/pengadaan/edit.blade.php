@@ -56,8 +56,9 @@
                                 @csrf
                                 <div class="form-group">
                                     <label>Timestamp</label>
-                                    <input type="datetime-local" name="timestamp" class="form-control" autofocus required>
-                                </div>
+                                    <input type="datetime-local" name="timestamp" class="form-control" autofocus required 
+                                        value="{{ old('timestamp', $pengadaan->timestamp) }}">
+                                </div>                                
                                 <div class="form-group">
                                     <label for="status">Status</label>
                                     <select name="status" class="form-control" required>
@@ -68,38 +69,44 @@
                                 </div>    
                                 <div class="form-group">
                                     <label>Subtotal</label>
-                                    <input type="text" name="subtotal" id="subtotal" class="form-control" autofocus required>
+                                    <input type="text" name="subtotal" id="subtotal" class="form-control" autofocus required value="{{ old('subtotal', $pengadaan->subtotal_nilai) }}">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label>PPN</label>
-                                    <input type="text" name="ppn" id="ppn" class="form-control" autofocus required>
+                                    <input type="text" name="ppn" id="ppn" class="form-control" autofocus required value="{{ old('ppn', $pengadaan->ppn) }}">
                                 </div>
                                 
                                 <div class="form-group">
                                     <label>Total</label>
-                                    <input type="text" name="total" id="total" class="form-control" readonly>
+                                    <input type="text" name="total" id="total" class="form-control" readonly value="{{ old('total', $pengadaan->total_nilai) }}">
                                 </div>
                                 <div class="form-group">
-                                        <label for="filterVendor">Vendor</label>
-                                        <select name="filterVendor" id="filterVendor" class="form-control">
-                                            <option value="">Pilih Vendor</option>
-                                            @foreach($vendors as $vendor)
-                                                <option value="{{ $vendor->idvendor }}">{{ $vendor->nama_vendor }}</option>
-                                            @endforeach
-                                        </select>            
-                                    </div>             
-                                    <div class="form-group">
-                                        <label for="filterUser">User</label>
-                                        <select name="filterUser" id="filterUser" class="form-control">
-                                            <option value="">Pilih User</option>
-                                            <!-- Diisi dengan data user yang tersedia -->
-                                            @foreach($users as $user)
-                                                <option value="{{ $user->iduser }}">{{ $user->username }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                                                                                                                                                     
+                                    <label for="filterVendor">Vendor</label>
+                                    <select name="filterVendor" id="filterVendor" class="form-control">
+                                        <option value="">Pilih Vendor</option>
+                                        @foreach($vendors as $vendor)
+                                            <option value="{{ $vendor->idvendor }}"
+                                                @if (old('filterVendor', $pengadaan->vendor_idvendor) == $vendor->idvendor) 
+                                                    selected 
+                                                @endif>{{ $vendor->nama_vendor }}
+                                            </option>
+                                        @endforeach
+                                    </select>            
+                                </div>             
+                                <div class="form-group">
+                                    <label for="filterUser">User</label>
+                                    <select name="filterUser" id="filterUser" class="form-control">
+                                        <option value="">Pilih User</option>
+                                        @foreach($users as $user)
+                                            <option value="{{ $user->iduser }}"
+                                                @if (old('filterUser', $pengadaan->user_iduser) == $user->iduser) 
+                                                    selected 
+                                                @endif>{{ $user->username }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>                                                                                                                                                                                            
                                 <button type="submit" class="btn btn-success">Save</button>
                             </form>
                         </div>
