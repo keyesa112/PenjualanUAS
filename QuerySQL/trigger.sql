@@ -272,7 +272,7 @@ ALTER TABLE detail_penerimaan AUTO_INCREMENT=0;
 DROP TRIGGER generate_idtransaksi;
 
 -- ------------------------------------------------
--- trigger barang masuk
+-- trigger jika menerima barang, stok masuk nambah
 -- ------------------------------------------------
 DROP TRIGGER IF EXISTS uas.before_insert_detail_penerimaan;
 DELIMITER //
@@ -294,13 +294,13 @@ BEGIN
     -- Check if it's the first time adding stock or not
     IF jumlah_lama > 0 THEN
         -- Update kartu_stok with the new stock value using INSERT ... ON DUPLICATE KEY UPDATE
-        INSERT INTO uas.kartu_stok (idbarang, masuk, stock, created_at, idtransaksi)
-        VALUES (NEW.barang_idbarang, NEW.jumlah_terima, stock_update, NOW(), NEW.idpenerimaan)
+        INSERT INTO uas.kartu_stok (idbarang, jenis_transaksi, masuk, stock, created_at, idtransaksi)
+        VALUES (NEW.barang_idbarang, 1,NEW.jumlah_terima, stock_update, NOW(), NEW.idpenerimaan)
         ON DUPLICATE KEY UPDATE stock = stock_update, masuk = NEW.jumlah_terima, created_at = NOW(), idtransaksi = NEW.idpenerimaan;
     ELSE
         -- Insert into kartu_stok for the first time
-        INSERT INTO uas.kartu_stok (idbarang, masuk, stock, created_at, idtransaksi)
-        VALUES (NEW.barang_idbarang, NEW.jumlah_terima, stock_update, NOW(), NEW.idpenerimaan);
+        INSERT INTO uas.kartu_stok (idbarang, jenis_transaksi, masuk, stock, created_at, idtransaksi)
+        VALUES (NEW.barang_idbarang, 1, NEW.jumlah_terima, stock_update, NOW(), NEW.idpenerimaan);
     END IF;
 
 END;
@@ -308,6 +308,10 @@ END;
 DELIMITER ;
 
 -- -----------------------------------------------------------------------------------------------------
+
+-- ------------------------------------------------
+-- trigger jika ada retur, maka penerimaan keupdate, sehingga kartu stok mengalami pengeluaran
+-- ------------------------------------------------
 DROP TRIGGER IF EXISTS uas.before_update_detail_penerimaan;
 DELIMITER //
 CREATE TRIGGER before_update_detail_penerimaan
@@ -328,59 +332,27 @@ BEGIN
     -- Check if it's the first time adding stock or not
     IF jumlah_lama > 0 THEN
         -- Update kartu_stok with the new stock value using INSERT ... ON DUPLICATE KEY UPDATE
-        INSERT INTO uas.kartu_stok (idbarang, masuk, keluar, stock, created_at, idtransaksi)
-        VALUES (NEW.barang_idbarang, NEW.jumlah_terima, (jumlah_lama - NEW.jumlah_terima), stock_update, NOW(), NEW.idpenerimaan)
+        INSERT INTO uas.kartu_stok (idbarang, jenis_transaksi, keluar, stock, created_at, idtransaksi)
+        VALUES (NEW.barang_idbarang, 2, (jumlah_lama - NEW.jumlah_terima), stock_update, NOW(), NEW.idpenerimaan)
         ON DUPLICATE KEY UPDATE stock = stock_update, masuk = NEW.jumlah_terima, created_at = NOW(), idtransaksi = NEW.idpenerimaan;
 
         -- Reset NEW values to avoid the actual update operation
         SET NEW.jumlah_terima = NEW.jumlah_terima;
     ELSE
         -- Insert into kartu_stok for the first time
-        INSERT INTO uas.kartu_stok (idbarang, masuk, stock, created_at, idtransaksi)
-        VALUES (NEW.barang_idbarang, NEW.jumlah_terima, stock_update, NOW(), NEW.idpenerimaan);
+        INSERT INTO uas.kartu_stok (idbarang, jenis_transaksi, keluar, stock, created_at, idtransaksi)
+        VALUES (NEW.barang_idbarang, 2, (jumlah_lama - NEW.jumlah_terima), stock_update, NOW(), NEW.idpenerimaan);
     END IF;
 
 END;
 //
 DELIMITER ;
 
+-- ------------------------------------------------
+-- trigger jika ada yg terjual maka stok berkurang
+-- ------------------------------------------------
 DROP TRIGGER IF EXISTS uas.before_insert_detail_penjualan;
 DELIMITER //
-CREATE TRIGGER before_insert_detail_penjualan
-BEFORE INSERT ON uas.detail_penjualan FOR EACH ROW
-BEGIN
-    DECLARE jumlah_lama INT;
-    DECLARE stock_update INT;
-    DECLARE barang_id INT;
-    
-    -- Ambil nilai lama stock dan dianggap 0 jika ini pertama kali
-    SELECT COALESCE(MAX(stock), 0), idbarang INTO jumlah_lama, barang_id
-    FROM uas.kartu_stok
-    WHERE idbarang = NEW.idbarang;
-    
-    -- Calculate the new stock
-    SET NEW.jumlah = IFNULL(NEW.jumlah, 0);  -- Pastikan jumlah tidak null
-    SET stock_update = jumlah_lama - NEW.jumlah;
-
-    -- Cek apakah ini penambahan stock pertama kali atau tidak
-    IF jumlah_lama > 0 THEN
-        -- Update kartu_stok with the new stock value using INSERT ... ON DUPLICATE KEY UPDATE
-        INSERT INTO uas.kartu_stok (idbarang, keluar, stock)
-        VALUES (barang_id, NEW.jumlah, stock_update)
-        ON DUPLICATE KEY UPDATE stock = stock_update, keluar = NEW.jumlah;
-    ELSE
-        -- Insert into kartu_stok for the first time
-        INSERT INTO uas.kartu_stok (idbarang, keluar, stock)
-        VALUES (barang_id, NEW.jumlah, stock_update);
-    END IF;
-END;
-//
-
-DELIMITER ;
-
--- YANG BENAR (TAPI BELUM DICOBA SI)
-DELIMITER //
-
 CREATE TRIGGER before_insert_detail_penjualan
 BEFORE INSERT ON uas.detail_penjualan FOR EACH ROW
 BEGIN
@@ -405,15 +377,80 @@ BEGIN
     -- Check if it's the first time updating stock or not
     IF jumlah_lama > 0 THEN
         -- Update kartu_stok with the new stock value using INSERT ... ON DUPLICATE KEY UPDATE
-        INSERT INTO uas.kartu_stok (idbarang, keluar, stock, created_at, idtransaksi)
-        VALUES (barang_id, NEW.jumlah, stock_update, NOW(), NEW.penjualan_idpenjualan)
+        INSERT INTO uas.kartu_stok (idbarang, jenis_transaksi, keluar, stock, created_at, idtransaksi)
+        VALUES (barang_id, 3, NEW.jumlah, stock_update, NOW(), NEW.penjualan_idpenjualan)
         ON DUPLICATE KEY UPDATE stock = stock_update, keluar = keluar + NEW.jumlah, created_at = NOW(), idtransaksi = NEW.penjualan_idpenjualan;
     ELSE
         -- Insert into kartu_stok for the first time
-        INSERT INTO uas.kartu_stok (idbarang, keluar, stock, created_at, idtransaksi)
-        VALUES (NEW.idbarang, NEW.jumlah, stock_update, NOW(), NEW.penjualan_idpenjualan);
+        INSERT INTO uas.kartu_stok (idbarang, jenis_transaksi, keluar, stock, created_at, idtransaksi)
+        VALUES (NEW.idbarang, 3, NEW.jumlah, stock_update, NOW(), NEW.penjualan_idpenjualan);
     END IF;
+END;
+//
 
+DELIMITER ;
+SET SQL_SAFE_UPDATES = 0;
+
+-- ------------------------------------------------
+-- trigger jika terjual maka total ngupdate
+-- ------------------------------------------------
+DELIMITER //
+CREATE TRIGGER calculate_subtotal_insert
+AFTER INSERT ON uas.detail_penjualan
+FOR EACH ROW
+BEGIN
+	UPDATE penjualan p
+     SET p.subtotal_nilai = (
+        SELECT SUM(dp.subtotal) 
+        FROM detail_penjualan dp 
+        WHERE dp.penjualan_idpenjualan = NEW.penjualan_idpenjualan
+    )
+    WHERE p.idpenjualan = NEW.penjualan_idpenjualan;
+    
+    -- call proc
+	CALL update_total_penjualan(NEW.penjualan_idpenjualan);
+END;
+//
+
+-- -----------------------------------------------------------------------------------------------------
+
+DELIMITER //
+CREATE TRIGGER calculate_subtotal_update
+AFTER UPDATE ON uas.detail_penjualan
+FOR EACH ROW
+BEGIN
+	UPDATE penjualan p
+     SET p.subtotal_nilai = (
+        SELECT SUM(dp.subtotal) 
+        FROM detail_penjualan dp 
+        WHERE dp.penjualan_idpenjualan = NEW.penjualan_idpenjualan
+    )
+    WHERE p.idpenjualan = NEW.penjualan_idpenjualan;
+    
+    -- call proc
+	CALL update_total_penjualan(NEW.penjualan_idpenjualan);
+END;
+//
+
+-- -----------------------------------------------------------------------------------------------------
+
+DELIMITER //
+CREATE PROCEDURE update_total_penjualan(penjualan_id INT)
+BEGIN
+    DECLARE total_value INT;
+    DECLARE margin_value DOUBLE;
+    DECLARE ppn_value INT;
+
+    SELECT COALESCE(SUM(subtotal), 0) INTO total_value FROM uas.detail_penjualan WHERE penjualan_idpenjualan = penjualan_id;
+
+    SELECT persen INTO margin_value FROM uas.margin_penjualan WHERE idmargin_penjualan = (SELECT idmargin_penjualan FROM uas.penjualan WHERE idpenjualan = penjualan_id);
+
+    SELECT ppn INTO ppn_value FROM uas.penjualan WHERE idpenjualan = penjualan_id;
+
+    UPDATE uas.penjualan 
+    SET subtotal_nilai = total_value, -- Assign the calculated subtotal directly to subtotal_nilai
+        total_nilai = total_value + (total_value * margin_value) + (ppn_value / 100 * total_value) 
+    WHERE idpenjualan = penjualan_id;
 END;
 //
 
@@ -421,64 +458,9 @@ DELIMITER ;
 
 
 
-SET SQL_SAFE_UPDATES = 0;
-
-DELIMITER //
-CREATE PROCEDURE total_penjualan(IN iduser_param INT)
-BEGIN
-    DECLARE margin_percent DOUBLE;
-    -- Ambil persentase dari tabel margin_penjualan
-    SELECT m.persen INTO margin_percent
-    FROM margin_penjualan m
-    WHERE m.iduser = iduser_param
-    ORDER BY m.id_margin_penjualan DESC -- Add an ORDER BY clause to select the latest record
-    LIMIT 1;
-    -- Update subtotal_nilai dengan mempertimbangkan persentase margin
-    UPDATE penjualan p
-    SET p.subtotal_nilai = ROUND(p.ppn * margin_percent / 100),
-        p.total_nilai = ROUND(p.subtotal_nilai + p.ppn)
-    WHERE p.iduser = iduser_param;
-END //
-DELIMITER ;
-
-CALL total_penjualan(1);
-
-DELIMITER //
-CREATE FUNCTION hitung_subtotal(id_detail_penjualan_param INT) 
-RETURNS INT DETERMINISTIC
-BEGIN
-    DECLARE total_value INT;
-    
-    -- Calculate total value for the specific row by summing up (harga_satuan * jumlah) for that item
-    SELECT dp.harga_satuan * dp.jumlah + (
-        SELECT p.total_nilai
-        FROM penjualan p
-        WHERE p.id_penjualan = dp.id_penjualan
-    ) INTO total_value
-    FROM detail_penjualan dp
-    WHERE dp.id_detail_penjualan = id_detail_penjualan_param;
-    
-    RETURN total_value;
-END //
-DELIMITER ;
-select hitung_subtotal(2);
-
--- Modify the procedure to update subtotal using the modified function
-DELIMITER //
-CREATE PROCEDURE update_detilpenjualan(IN id_detail_penjualan_param INT)
-BEGIN
-    DECLARE subtotal_val INT;
-    -- Hitung subtotal menggunakan fungsi
-    SET subtotal_val = hitung_subtotal(id_detail_penjualan_param);
-    -- Update subtotal pada tabel detail_penjualan
-    UPDATE detail_penjualan
-    SET subtotal = subtotal_val
-    WHERE id_detail_penjualan = id_detail_penjualan_param;
-END //
-DELIMITER ;
-CALL update_detilpenjualan(2);
-
-
+-- ------------------------------------------------
+-- view keluar masuk
+-- ------------------------------------------------
 CREATE VIEW view_kartu_stok AS 
 SELECT
     ks.idkartu_stok,
