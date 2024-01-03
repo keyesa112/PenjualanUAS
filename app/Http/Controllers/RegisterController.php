@@ -23,18 +23,17 @@ class RegisterController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    
-        //native
+
         $idUsers = $request->id;
         $username = $request->name;
         $email = $request->email;
-        $password = $request->password;
+        $password = Hash::make($request->password); // Hash the password
         $idRole = $request->idRole;
 
-        // Execute the native SQL query to insert a new record
-        DB::insert("INSERT INTO users (id_users, username, email, password, idRole) 
+        // Execute the query to insert a new record with the hashed password
+        DB::insert("INSERT INTO users (iduser, username, email, password, idrole) 
                 VALUES (?, ?, ?, ?, ?)", [$idUsers, $username, $email, $password, $idRole]);
 
-        return redirect('home')->with('status', 'User berhasil ditambahkan!');
+        return redirect('/signup')->with('status', 'User berhasil ditambahkan!');
     }
 }

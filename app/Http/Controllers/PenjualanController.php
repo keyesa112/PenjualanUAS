@@ -22,7 +22,7 @@ class PenjualanController extends Controller
                 ->whereNull('penjualan.deleted_at')
                 ->get();
 
-        return view('penjualan.index', compact('penjualan'));
+            return view('penjualan.index', compact('penjualan'));
     }
 
     /**

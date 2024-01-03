@@ -16,36 +16,33 @@ class LoginController extends Controller
 
     public function login(Request $request)
     {
-        // return view('/home');
         $request->validate([
             'email' => 'required|email',
             'password' => 'required',
         ]);
-
-        // dd($request->all());
     
-        $email = $request->input('email'); 
-        $password = Hash::make('password');
-        // // $password = Hash::make($plainPassword); // Hash kata sandi yang dimasukkan
+        $email = $request->input('email');
+        $password = $request->input('password');
     
-        // // Mengambil kredensial user dari database berdasarkan email
-        $user = DB::table('users')
-            ->where('email', $email)
-            ->first();
-        $user = Auth::user();
-            
-            if ($user->email == $email) {
-                // Jika kredensial cocok, maka login berhasil
-                // Lakukan sesuatu setelah login berhasil, seperti menyimpan data ke sesi atau melakukan redirect ke halaman lain
-                Auth::login($user);
-                return "oke";
-                // return redirect('home')->with('status', 'User berhasil login!');
-            } else {
-                return "tetot";
-                // Jika kredensial tidak cocok, redirect dengan pesan error
-                // return redirect('login')->with('status', 'Gagal login: Email atau password tidak valid.');
+        $user = User::where('email', $email)->first();
+    
+        if ($user && Hash::check($password, $user->password)) {
+            Auth::login($user);
+            if ($user->idrole === 1) { //admin
+                return redirect('/home')->with('status', 'User berhasil login!');
+            } elseif ($user->idrole === 2) { //kasir
+                return redirect('/home-kasir')->with('status', 'User berhasil login!');
+            }
+            // return redirect('/home')->with('status', 'User berhasil login!');
+        } else {
+            return redirect('/')->with('status', 'Gagal login: Email atau password tidak valid.');
         }
-    
+        }
+
+    public function logout(Request $request)
+    {
+        Auth::logout(); // Log the user out
+        return redirect('/'); // Redirect to login page or any other desired page after logout
     }
     
 }

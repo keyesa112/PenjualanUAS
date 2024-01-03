@@ -34,8 +34,8 @@
                     </a>
                 </div>
                 <div class="login-form">
-                    <form method="POST" action="{{ route('login') }}">
-                        @csrf <!-- Tambahkan token CSRF untuk validasi form -->
+                    <form action="{{ url('login') }}" method="post">
+                        @csrf
                         <div class="form-group">
                             <label>Email address</label>
                             <input type="email" name="email" class="form-control" placeholder="Email"> <!-- Tambahkan atribut 'name' -->

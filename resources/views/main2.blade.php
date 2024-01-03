@@ -38,61 +38,22 @@
                     <li class="active">
                         <a href="{{ url('home') }}"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                     </li>
-                    <h3 class="menu-title">Master</h3><!-- /.menu-title -->
                 
-                    <li>
-                        <a href="{{ url('role') }}"> <i class="menu-icon fa fa-user"></i>Role</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('user') }}"> <i class="menu-icon fa fa-user-plus"></i>User</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('satuan') }}"> <i class="menu-icon fa fa-file"></i>Satuan</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('barang') }}"> <i class="menu-icon fa fa-archive"></i>Barang</a>
-                    </li>
-                    <li>
-                        <a href="{{ url('vendor') }}"> <i class="menu-icon fa fa-paperclip"></i>Vendor</a>
-                    </li>
-
                 </li>
                 <h3 class="menu-title">Transaction</h3><!-- /.menu-title -->
                 <li>
-
-                    {{-- pangadaan --}}
-                    <li class="menu-item-has-children dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list-alt"></i>Transaksi Pengadaan</a>
-                    <ul class="sub-menu children dropdown-menu">
-                            <li><i class="fa fa-plus-square"></i><a href="{{ url('pengadaan') }}">Pengadaan</a></li>
-                            <li><i class="fa fa-plus-square"></i><a href="{{ url('detpengadaan') }}">Det. Pengadaan</a></li>
-                    </ul>
-
-                    {{-- penerimaan --}}
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list-alt"></i>Transaksi Penerimaan</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-plus-square"></i><a href="{{ url('penerimaan') }}">Penerimaan</a></li>
-                        <li><i class="fa fa-plus-square"></i><a href="{{ url('detpenerimaan') }}">Det. Penerimaan</a></li>
-                    </ul>
-                    
-                    {{-- Retur --}}
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list-alt"></i>Transaksi Retur</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-plus-square"></i><a href="{{ url('retur') }}">Retur</a></li>
-                        <li><i class="fa fa-plus-square"></i><a href="{{ url('detretur') }}">Det. Retur</a></li>
-                    </ul>
-
-                    {{-- penjualan --}}
-                    <li class="menu-item-has-children dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-list-alt"></i>Transaksi Penjualan</a>
-                    <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-plus-square"></i><a href="{{ url('penjualan') }}">Penjualan</a></li>
-                        <li><i class="fa fa-plus-square"></i><a href="{{ url('detpenjualan') }}">Det. Penjualan</a></li>
-                        <li><i class="fa fa-plus-square"></i><a href="{{ url('margin') }}">Marg. Penjualan</a></li>
-                        <li><i class="fa fa-plus-square"></i><a href="{{ url('kartustok') }}">Kartu Stok</a></li>
-                    </ul>
+                    <li class="active">
+                        <a href="{{ url('penjualan') }}"> <i class="menu-icon fa fa-plus-square"></i>Penjualan </a>
+                    </li>
+                    <li class="active">
+                        <a href="{{ url('detpenjualan') }}"> <i class="menu-icon fa fa-plus-square"></i>Det. Penjualan </a>
+                    </li>
+                    <li class="active">
+                        <a href="{{ url('margin') }}"> <i class="menu-icon fa fa-plus-square"></i>Marg. Penjualan </a>
+                    </li>
+                    <li class="active">
+                        <a href="{{ url('kartustok') }}"> <i class="menu-icon fa fa-plus-square"></i>Kartu Stok </a>
+                    </li>
                         
             </div><!-- /.navbar-collapse -->
         </nav>

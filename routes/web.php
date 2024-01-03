@@ -20,7 +20,8 @@ Route::post('/signup', 'App\Http\Controllers\RegisterController@register')->name
 
 //login
 Route::get('/', 'App\Http\Controllers\LoginController@showLoginForm');
-Route::post('/', 'App\Http\Controllers\LoginController@login')->name('login');
+Route::post('/login', 'App\Http\Controllers\LoginController@login')->name('login');
+Route::post('/logout', 'App\Http\Controllers\LoginController@logout')->name('logout');
 
 //home
 Route::get('home', function () {
@@ -78,3 +79,8 @@ Route::resource('detpenjualan', 'App\Http\Controllers\DetailPenjualanController'
 
 //kartustok
 Route::resource('kartustok', 'App\Http\Controllers\KartuStokController');
+
+//home-admin
+Route::get('home-kasir', function () {
+    return view('home2');
+});

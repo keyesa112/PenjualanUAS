@@ -79,8 +79,10 @@ class UserController extends Controller
     {
         $users = User::where('iduser', $id)->get();
         $users = $users[0];
+        $roles = DB::select('SELECT *
+            FROM roles');
         // return $users;
-        return view('users/show', compact('users'));
+        return view('users/show', compact('users','roles'));
     }
 
     /**
