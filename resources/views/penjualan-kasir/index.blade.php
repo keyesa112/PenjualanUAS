@@ -1,4 +1,4 @@
-@extends('main')
+@extends('main2')
 
 @section('title','penjualan')
 
@@ -17,7 +17,7 @@
             <div class="page-title">
                 <ol class="breadcrumb text-right">
                     <li>
-                        <a href="{{ url('penjualan/create') }}">Penjualan</a>
+                        <a href="{{ url('penjualan-kasir/create') }}">Penjualan</a>
                     </li>
                     <li class="active">Data</li>
                 </ol>
@@ -38,7 +38,7 @@
                     <strong>Data Penjualan</strong>
                 </div>
                 <div class="pull-right">
-                    <a href="{{ url('penjualan/create') }}" class="btn btn-success btn-sm">
+                    <a href="{{ url('penjualan-kasir/create') }}" class="btn btn-success btn-sm">
                         <i class="fa fa-plus"></i> Add
                     </a>
                 </div>
@@ -67,13 +67,13 @@
                              <td>{{ $item->total_nilai }}</td>
                              <td>{{ $item->username }}</td>
                              <td class="text-center">
-                                <a href="{{ url('penjualan/' . $item->idpenjualan ) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ url('penjualan-kasir/' . $item->idpenjualan ) }}" class="btn btn-warning btn-sm">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a href="{{ url('penjualan/'.$item->idpenjualan.'/edit') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ url('penjualan-kasir/'.$item->idpenjualan.'/edit') }}" class="btn btn-primary btn-sm">
                                 <i class="fa fa-pencil"></i>
                                 </a>
-                                <form action="{{ url('penjualan/' . $item->idpenjualan) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
+                                <form action="{{ url('penjualan-kasir/' . $item->idpenjualan) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger btn-sm">

@@ -1,4 +1,4 @@
-@extends('main')
+@extends('main2')
 
 @section('title','kartu stok')
 
@@ -17,7 +17,7 @@
             <div class="page-title">
                 <ol class="breadcrumb text-right">
                     <li>
-                        <a href="{{ url('kartustok/create') }}">Kartu Stok</a>
+                        <a href="{{ url('kartustok-kasir/create') }}">Kartu Stok</a>
                     </li>
                     <li class="active">Data</li>
                 </ol>
@@ -38,7 +38,7 @@
                     <strong>Data Kartu Stok</strong>
                 </div>
                 <div class="pull-right">
-                    <a href="{{ url('kartustok/create') }}" class="btn btn-success btn-sm">
+                    <a href="{{ url('kartustok-kasir/create') }}" class="btn btn-success btn-sm">
                         <i class="fa fa-plus"></i> Add
                     </a>
                 </div>
@@ -69,13 +69,13 @@
                              <td>{{ $item->created_at }}</td>
                              <td>{{ $item->idtransaksi }}</td>
                              <td class="text-center">
-                                <a href="{{ url('kartustok/' . $item->idkartu_stok ) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ url('kartustok-kasir/' . $item->idkartu_stok ) }}" class="btn btn-warning btn-sm">
                                     <i class="fa fa-eye"></i>
                                 </a>
-                                <a href="{{ url('kartustok/'.$item->idkartu_stok.'/edit') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ url('kartustok-kasir/'.$item->idkartu_stok.'/edit') }}" class="btn btn-primary btn-sm">
                                 <i class="fa fa-pencil"></i>
                                 </a>
-                                <form action="{{ url('kartustok/' . $item->idkartu_stok) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
+                                <form action="{{ url('kartustok-kasir/' . $item->idkartu_stok) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger btn-sm">

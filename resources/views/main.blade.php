@@ -93,7 +93,7 @@
                         <li><i class="fa fa-plus-square"></i><a href="{{ url('margin') }}">Marg. Penjualan</a></li>
                         <li><i class="fa fa-plus-square"></i><a href="{{ url('kartustok') }}">Kartu Stok</a></li>
                     </ul>
-                        
+
             </div><!-- /.navbar-collapse -->
         </nav>
     </aside><!-- /#left-panel -->
@@ -125,8 +125,7 @@
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf <!-- CSRF protection -->
-                                <button type="submit" class="nav-link" style="border: none; background: none; cursor: pointer;">
-                                    <i class="fa fa-power-off"></i>Logout
+                                <button type="submit" class="nav-link" style="border: none; background: none; cursor: pointer;">Logout
                                 </button>
                             </form>
                         </div>

@@ -1,4 +1,4 @@
-@extends('main')
+@extends('main2')
 
 @section('title','detail penjualan')
 
@@ -46,7 +46,7 @@
                         <strong>Detail penjualan</strong>
                     </div>
                     <div class="pull-right">
-                        <a href="{{ url('detpenjualan/create') }}" class="btn btn-success btn-sm">
+                        <a href="{{ url('detpenjualan-kasir/create') }}" class="btn btn-success btn-sm">
                             <i class="fa fa-plus"></i> Add
                         </a>
                     </div>
@@ -72,13 +72,13 @@
                              <td>{{ $item->jumlah }}</td>
                              <td>{{ $item->subtotal }}</td>
                              <td class="text-center">
-                                <a href="{{ url('detpenjualan/' . $item->iddetail_penjualan) }}" class="btn btn-warning btn-sm">
+                                <a href="{{ url('detpenjualan-kasir/' . $item->iddetail_penjualan) }}" class="btn btn-warning btn-sm">
                                     <i class="fa fa-eye"></i>
                                 </a>                                
-                                <a href="{{ url('detpenjualan/'.$item->iddetail_penjualan.'/edit') }}" class="btn btn-primary btn-sm">
+                                <a href="{{ url('detpenjualan-kasir/'.$item->iddetail_penjualan.'/edit') }}" class="btn btn-primary btn-sm">
                                 <i class="fa fa-pencil"></i>
                                 </a>
-                                <form action="{{ url('detpenjualan' . $item->iddetail_penjualan) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
+                                <form action="{{ url('detpenjualan-kasir' . $item->iddetail_penjualan) }}" method="post" class="d-inline" onsubmit="return confirm('Yakin hapus data?')">
                                     @method('delete')
                                     @csrf
                                     <button class="btn btn-danger btn-sm">

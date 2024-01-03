@@ -43,16 +43,16 @@
                 <h3 class="menu-title">Transaction</h3><!-- /.menu-title -->
                 <li>
                     <li class="active">
-                        <a href="{{ url('penjualan') }}"> <i class="menu-icon fa fa-plus-square"></i>Penjualan </a>
+                        <a href="{{ url('penjualan-kasir') }}"> <i class="menu-icon fa fa-plus-square"></i>Penjualan </a>
                     </li>
                     <li class="active">
-                        <a href="{{ url('detpenjualan') }}"> <i class="menu-icon fa fa-plus-square"></i>Det. Penjualan </a>
+                        <a href="{{ url('detpenjualan-kasir') }}"> <i class="menu-icon fa fa-plus-square"></i>Det. Penjualan </a>
                     </li>
                     <li class="active">
-                        <a href="{{ url('margin') }}"> <i class="menu-icon fa fa-plus-square"></i>Marg. Penjualan </a>
+                        <a href="{{ url('margin-kasir') }}"> <i class="menu-icon fa fa-plus-square"></i>Marg. Penjualan </a>
                     </li>
                     <li class="active">
-                        <a href="{{ url('kartustok') }}"> <i class="menu-icon fa fa-plus-square"></i>Kartu Stok </a>
+                        <a href="{{ url('kartustok-kasir') }}"> <i class="menu-icon fa fa-plus-square"></i>Kartu Stok </a>
                     </li>
                         
             </div><!-- /.navbar-collapse -->
@@ -86,8 +86,7 @@
                             <a class="nav-link" href="#"><i class="fa fa -cog"></i>Settings</a>
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf <!-- CSRF protection -->
-                                <button type="submit" class="nav-link" style="border: none; background: none; cursor: pointer;">
-                                    <i class="fa fa-power-off"></i>Logout
+                                <button type="submit" class="nav-link" style="border: none; background: none; cursor: pointer;">Logout
                                 </button>
                             </form>
                         </div>

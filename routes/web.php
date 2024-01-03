@@ -84,3 +84,7 @@ Route::resource('kartustok', 'App\Http\Controllers\KartuStokController');
 Route::get('home-kasir', function () {
     return view('home2');
 });
+Route::resource('penjualan-kasir', 'App\Http\Controllers\PenjualanController2');
+Route::resource('detpenjualan-kasir', 'App\Http\Controllers\DetailPenjualanController2');
+Route::resource('margin-kasir', 'App\Http\Controllers\MarginPenjualanController2');
+Route::resource('kartustok-kasir', 'App\Http\Controllers\KartuStokController2');

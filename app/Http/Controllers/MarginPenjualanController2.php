@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 
-class MarginPenjualanController extends Controller
+class MarginPenjualanController2 extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,7 +21,7 @@ class MarginPenjualanController extends Controller
             ->whereNull('margin_penjualan.deleted_at')
             ->get();
 
-        return view('penjualan.margin.index', compact('margin'));
+        return view('penjualan-kasir.margin.index', compact('margin'));
     }
 
     /**
@@ -31,7 +31,7 @@ class MarginPenjualanController extends Controller
     {
         $users = DB::select('SELECT *
             FROM users');// Mengambil semua peran dari tabel vendor
-        return view('penjualan.margin.create', compact('users'));
+        return view('penjualan-kasir.margin.create', compact('users'));
     }
 
     /**
@@ -49,7 +49,7 @@ class MarginPenjualanController extends Controller
         DB::insert("INSERT INTO margin_penjualan (created_at, persen, status, iduser, updated_at) 
                 VALUES (?, ?, ?, ?, ?)", [$created_at, $persen, $status, $users, $updated_at]);
 
-        return redirect('margin')->with('status', 'Margin berhasil ditambahkan!');
+        return redirect('margin-kasir')->with('status', 'Margin berhasil ditambahkan!');
     }
 
     /**
@@ -60,7 +60,7 @@ class MarginPenjualanController extends Controller
         $margin = DB::table('margin_penjualan')->where('idmargin_penjualan', $idmargin_penjualan)->first();
         
         // return $users;
-        return view('penjualan.margin.show', compact('margin'));
+        return view('penjualan-kasir.margin.show', compact('margin'));
     }
 
     /**
@@ -72,7 +72,7 @@ class MarginPenjualanController extends Controller
             FROM users');// Mengambil semua peran dari tabel vendor
 
         $margin = DB::table('margin_penjualan')->where('idmargin_penjualan', $idmargin_penjualan)->first();
-        return view('penjualan.margin.edit', compact('margin', 'users'));
+        return view('penjualan-kasir.margin.edit', compact('margin', 'users'));
     }
 
     /**
@@ -90,7 +90,7 @@ class MarginPenjualanController extends Controller
             $idmargin_penjualan
         ]);
 
-        return redirect('margin')->with('status', 'Margin berhasil diedit!');
+        return redirect('margin-kasir')->with('status', 'Margin berhasil diedit!');
     }
 
     /**
@@ -106,6 +106,6 @@ class MarginPenjualanController extends Controller
                 ->whereNull('deleted_at')
                 ->get();
     
-            return redirect('margin')->with('status', 'Kartu stok berhasil dihapus!');
+            return redirect('margin-kasir')->with('status', 'Kartu stok berhasil dihapus!');
     }
 }
