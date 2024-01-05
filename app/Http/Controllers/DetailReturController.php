@@ -54,7 +54,7 @@ class DetailReturController extends Controller
         DB::insert("INSERT INTO detail_retur (jumlah, alasan, idretur, iddetail_penerimaan) 
                 VALUES (?, ?, ?, ?)", [$jumlah, $alasan, $idretur, $idpenerimaan]);
 
-        return redirect('detretur')->with('status', 'Retur berhasil ditambahkan!');
+        return redirect('detretur/create')->with('status', 'Retur berhasil ditambahkan!');
     }
 
     /**

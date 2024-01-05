@@ -46,13 +46,17 @@ class DetailPenerimaanController extends Controller
         $penerimaan = $request->idpenerimaan;
         $harga = $request->subtotal;
         $jumlah = $request->ppn;
-        $subtotal = $request->total;
+        $subtotalResult = DB::select("SELECT calculate_subtotal(:price, :quantity) as subtotal", [
+            'price' => $harga,
+            'quantity' => $jumlah,
+        ]);
+        
+        $subtotal = $subtotalResult[0]->subtotal;
 
         // Execute the native SQL query to insert a new record
         DB::insert("INSERT INTO detail_penerimaan (barang_idbarang, idpenerimaan, harga_satuan_terima, jumlah_terima, sub_total_terima) 
                 VALUES (?, ?, ?, ?, ?)", [$barangs, $penerimaan, $harga, $jumlah, $subtotal]);
-
-        return redirect('detpenerimaan')->with('status', 'User berhasil ditambahkan!');
+        return redirect('detpenerimaan/create')->with('status', 'Barang berhasil diterima!');
     }
 
     /**

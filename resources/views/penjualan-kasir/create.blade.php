@@ -25,7 +25,7 @@
 
                     <div class="row">
                         <div class="col-md-4 offset-md-4">
-                            <form action="{{ url('penjualan') }}" method="post">
+                            <form action="{{ url('penjualan-kasir') }}" method="post">
                                 @csrf
                                 <div class="form-group">
                                     <label>Created at</label>
@@ -33,7 +33,7 @@
                                 </div> 
                                 <div class="form-group">
                                     <label>Subtotal</label>
-                                    <input type="text" name="subtotal" id="subtotal" class="form-control" autofocus required>
+                                    <input type="text" name="subtotal" id="subtotal" class="form-control" autofocus required value="0">
                                 </div>
                                 <div class="form-group">
                                     <label for="persen">Margin (%)</label>

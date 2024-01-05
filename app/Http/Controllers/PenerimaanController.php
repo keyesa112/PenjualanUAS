@@ -51,7 +51,7 @@ class PenerimaanController extends Controller
         DB::insert("INSERT INTO penerimaan (created_at, status, idpengadaan, iduser) 
                 VALUES (?, ?, ?, ?)", [$created_at, $status, $pengadaan, $users]);
 
-        return redirect('penerimaan')->with('status', 'Penerimaan berhasil ditambahkan!');
+        return redirect('detpenerimaan/create')->with('status', 'Penerimaan barang berlangsung!');
     }
 
     /**
@@ -101,12 +101,13 @@ class PenerimaanController extends Controller
     public function destroy(string $idpenerimaan)
     {
         DB::table('penerimaan')
-            ->where('penerimaan', $idpenerimaan)
-            ->update(['deleted_at' => now()]);
+        ->where('idpenerimaan', $idpenerimaan) // Assuming 'idpenerimaan' is the correct column name
+        ->update(['deleted_at' => now()]);
 
-        $records = DB::table('penerimaan')
-            ->whereNull('deleted_at')
-            ->get();
+    $records = DB::table('penerimaan')
+        ->whereNull('deleted_at')
+        ->get();
+
 
         return redirect('penerimaan')->with('status', 'Penerimaan berhasil dihapus!');
     }

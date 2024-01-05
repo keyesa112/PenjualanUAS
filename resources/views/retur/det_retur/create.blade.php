@@ -17,7 +17,7 @@
                 </div>
                 <div class="pull-right">
                     <a href="{{ url('retur/') }}" class="btn btn-secondry btn-sm">
-                        <i class="fa fa-undo"></i> Back
+                        <i class="fa fa-close"></i> Close
                     </a>
                 </div>
             </div>

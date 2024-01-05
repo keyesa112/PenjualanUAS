@@ -76,7 +76,7 @@ class PengadaanController extends Controller
         DB::insert("INSERT INTO pengadaan (timestamp, status, subtotal_nilai, ppn, total_nilai, vendor_idvendor, user_iduser) 
                 VALUES (?, ?, ?, ?, ?, ?, ?)", [$timestamp, $status, $subtotal, $ppn, $total, $vendors, $users]);
 
-        return redirect('pengadaan')->with('status', 'Pengadaan berhasil ditambahkan!');
+        return redirect('detpengadaan/create')->with('status', 'Pengadaan berhasil ditambahkan!');
     }
 
     /**

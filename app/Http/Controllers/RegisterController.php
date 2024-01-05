@@ -34,6 +34,6 @@ class RegisterController extends Controller
         DB::insert("INSERT INTO users (iduser, username, email, password, idrole) 
                 VALUES (?, ?, ?, ?, ?)", [$idUsers, $username, $email, $password, $idRole]);
 
-        return redirect('/signup')->with('status', 'User berhasil ditambahkan!');
+        return redirect('/login')->with('status', 'User berhasil ditambahkan!');
     }
 }

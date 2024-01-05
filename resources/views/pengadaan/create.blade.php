@@ -41,7 +41,7 @@
                                 </div>    
                                 <div class="form-group">
                                     <label>Subtotal</label>
-                                    <input type="text" name="subtotal" id="subtotal" class="form-control" autofocus required>
+                                    <input type="text" name="subtotal" id="subtotal" class="form-control" autofocus required value="0">
                                 </div>
                                 
                                 <div class="form-group">

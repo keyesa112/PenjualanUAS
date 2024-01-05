@@ -17,7 +17,7 @@
                 </div>
                 <div class="pull-right">
                     <a href="{{ url('penerimaan/') }}" class="btn btn-secondry btn-sm">
-                        <i class="fa fa-undo"></i> Back
+                        <i class="fa fa-close"></i> Close
                     </a>
                 </div>
             </div>
@@ -68,7 +68,7 @@
 </div> 
 
 
-<script>
+{{-- <script>
     // Mendapatkan elemen input PPN dan Subtotal
     const ppnInput = document.getElementById('ppn');
     const subtotalInput = document.getElementById('subtotal');
@@ -92,7 +92,7 @@
         // Menetapkan nilai Total ke input Total
         totalInput.value = totalValue.toFixed(2); // Format menjadi dua angka desimal
     }
-</script>
+</script> --}}
 
 <script>
     $(document).ready(function() {

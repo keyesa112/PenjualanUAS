@@ -11,18 +11,23 @@ class PenjualanController2 extends Controller
      */
     public function index()
     {
-        $penjualan = DB::select('SELECT *
-            FROM penjualan
-            WHERE deleted_at is NULL');    
+        // $penjualan = DB::select('SELECT *
+        //     FROM penjualan
+        //     WHERE deleted_at is NULL');    
 
-        $penjualan = DB::table('penjualan')
-                ->select('penjualan.*', 'users.username', 'margin_penjualan.persen')
-                ->join('users', 'penjualan.iduser', '=', 'users.iduser')
-                ->join('margin_penjualan', 'penjualan.idmargin_penjualan', '=', 'margin_penjualan.idmargin_penjualan')
-                ->whereNull('penjualan.deleted_at')
-                ->get();
+        // $penjualan = DB::table('penjualan')
+        //         ->select('penjualan.*', 'users.username', 'margin_penjualan.persen')
+        //         ->join('users', 'penjualan.iduser', '=', 'users.iduser')
+        //         ->join('margin_penjualan', 'penjualan.idmargin_penjualan', '=', 'margin_penjualan.idmargin_penjualan')
+        //         ->whereNull('penjualan.deleted_at')
+        //         ->get();
 
-            return view('penjualan-kasir.index', compact('penjualan'));
+            // return view('penjualan-kasir.index', compact('penjualan'));
+        
+            $penjualan = DB::select('SELECT * FROM info_penjualan'); // Sesuaikan query dengan kebutuhan
+
+            // Kirim data ke view
+            return view('penjualan-kasir.index', ['penjualan' => $penjualan]);
     }
 
     /**
@@ -53,7 +58,7 @@ class PenjualanController2 extends Controller
         DB::insert("INSERT INTO penjualan (created_at, subtotal_nilai, ppn, total_nilai, idmargin_penjualan, iduser) 
                 VALUES (?, ?, ?, ?, ?, ?)", [$created_at, $subtotal, $ppn, $total, $margin, $users]);
 
-        return redirect('penjualan-kasir')->with('status', 'Penjualan berhasil ditambahkan!');
+        return redirect('detpenjualan-kasir/create')->with('status', 'Transaksi Penjualan Berlangsung!');
     }
 
     /**

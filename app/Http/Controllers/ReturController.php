@@ -50,7 +50,7 @@ class ReturController extends Controller
         DB::insert("INSERT INTO retur (created_at, idpenerimaan, iduser) 
                 VALUES (?, ?, ?)", [$created_at, $penerimaan, $users]);
 
-        return redirect('retur')->with('status', 'Retur berhasil ditambahkan!');
+        return redirect('detretur/create')->with('status', 'Retur berhasil berjalan!');
     }
 
     /**

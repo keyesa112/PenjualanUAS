@@ -42,17 +42,30 @@ class DetailPenjualanController2 extends Controller
      */
     public function store(Request $request)
     {
-        $barangs = $request->idBarang;
         $harga = $request->subtotal;
         $jumlah = $request->ppn;
-        $subtotal = $request->total;
+        
+        // Menggunakan DB::statement untuk memanggil fungsi calculate_subtotal
+        $subtotalResult = DB::select("SELECT calculate_subtotal(:price, :quantity) as subtotal", [
+            'price' => $harga,
+            'quantity' => $jumlah,
+        ]);
+        
+        $subtotal = $subtotalResult[0]->subtotal;
+        $barangs = $request->idBarang;
         $penjualan = $request->idpenjualan;
-
+        
         // Execute the native SQL query to insert a new record
         DB::insert("INSERT INTO detail_penjualan (idbarang, harga_satuan, jumlah, subtotal, penjualan_idpenjualan) 
-                VALUES (?, ?, ?, ?, ?)", [$barangs, $harga, $jumlah, $subtotal, $penjualan]);
+            VALUES (?, ?, ?, ?, ?)", [$barangs, $harga, $jumlah, $subtotal, $penjualan]);
+        
+        $idpenjualan = $request->idpenjualan;
+        
+        // Call the stored procedure using DB::statement
+        DB::statement("CALL update_total_penjualan($idpenjualan)");
+        
 
-        return redirect('detpenjualan-kasir')->with('status', 'Detail penjualan berhasil ditambahkan!');
+        return redirect('detpenjualan-kasir/create')->with('status', 'Detail penjualan berhasil ditambahkan!');
     }
 
     /**

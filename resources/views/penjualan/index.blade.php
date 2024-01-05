@@ -48,12 +48,15 @@
                         <thead>
                              <tr>
                                  <th>ID</th>
-                                 <th>Timestamp</th>
-                                 <th>Sub Total</th>
-                                 <th>Margin (%)</th>
+                                 <th>Waktu Penjualan</th>
+                                 <th>Nama Barang</th>
+                                 <th>Harga Satuan</th>
+                                 <th>Jumlah</th>
+                                 <th>Sub Total Barang</th>
+                                 <th>Sub Total Bayar</th>
                                  <th>PPN(%)</th>
-                                 <th>Total</th>
-                                 <th>User<th>
+                                 <th>Total Bayar</th>
+                                 <th>
                              </tr>
                         </thead>
                         <tbody>
@@ -61,11 +64,13 @@
                          <tr>
                              <td>{{ $loop->iteration }}</td>
                              <td>{{ $item->created_at }}</td>
+                             <td>{{ $item->nama }}</td>
+                             <td>{{ $item->harga_satuan }}</td>
+                             <td>{{ $item->jumlah }}</td>
+                             <td>{{ $item->subtotal }}</td>
                              <td>{{ $item->subtotal_nilai }}</td>
-                             <td>{{ $item->persen }}</td>
                              <td>{{ $item->ppn }}</td>
                              <td>{{ $item->total_nilai }}</td>
-                             <td>{{ $item->username }}</td>
                              <td class="text-center">
                                 <a href="{{ url('penjualan/' . $item->idpenjualan ) }}" class="btn btn-warning btn-sm">
                                     <i class="fa fa-eye"></i>

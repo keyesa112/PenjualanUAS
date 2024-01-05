@@ -52,7 +52,12 @@ class DetailPengadaanController extends Controller
         DB::insert("INSERT INTO detail_pengadaan (barang_idbarang, harga_satuan, jumlah, sub_total, pengadaan_idpengadaan) 
                 VALUES (?, ?, ?, ?, ?)", [$barangs, $harga, $jumlah, $subtotal, $pengadaan]);
 
-        return redirect('detpengadaan')->with('status', 'User berhasil ditambahkan!');
+        $idpengadaan = $request->idpengadaan; // Assuming you have the ID of the pengadaan
+
+        // Call the stored procedure using DB::statement
+        DB::statement("CALL UpdateTotalPengadaan($idpengadaan)");
+
+        return redirect('detpengadaan/create')->with('status', 'Barang berhasil ditambahkan!');
     }
 
     /**

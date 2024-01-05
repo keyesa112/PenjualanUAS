@@ -17,7 +17,7 @@
                 </div>
                 <div class="pull-right">
                     <a href="{{ url('detpengadaan/') }}" class="btn btn-secondry btn-sm">
-                        <i class="fa fa-undo"></i> Back
+                        <i class="fa fa-close"></i> Close
                     </a>
                 </div>
             </div>
@@ -122,6 +122,42 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
             var selectedHarga = $(this).find(':selected').data('subtotal');
             $('#subtotal').val(selectedHarga);
         });
+    });
+</script>
+<script>
+    // Your existing JavaScript logic to handle calculations and form data
+
+    // Get the form and buttons
+    const formSection = document.getElementById('formSection');
+    const saveButton = document.getElementById('saveButton');
+    const nextButton = document.getElementById('nextButton');
+    const doneButton = document.getElementById('doneButton');
+
+    // Event listener for the save button
+    saveButton.addEventListener('click', function(event) {
+        // Your logic to handle form submission (saving data to database, etc.)
+
+        // Show/hide elements after saving
+        saveButton.style.display = 'none'; // Hide Save button
+        nextButton.style.display = 'inline-block'; // Show Next button
+        doneButton.style.display = 'inline-block'; // Show Done button
+    });
+
+    // Event listener for the next button
+    nextButton.addEventListener('click', function(event) {
+        // Reset form or proceed to the next step
+        // Example:
+        // Clear input values, show the form again, or move to the next step
+
+        // After resetting the form or moving to the next step, show the Save button again
+        saveButton.style.display = 'inline-block'; // Show Save button
+        nextButton.style.display = 'none'; // Hide Next button
+        doneButton.style.display = 'none'; // Hide Done button
+    });
+
+    // Event listener for the done button
+    doneButton.addEventListener('click', function(event) {
+        // Finish the process, redirect, or perform any other necessary action
     });
 </script>
 

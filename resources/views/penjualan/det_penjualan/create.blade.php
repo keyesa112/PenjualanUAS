@@ -16,8 +16,8 @@
                     <strong>Detail penjualan</strong>
                 </div>
                 <div class="pull-right">
-                    <a href="{{ url('detpenjualan/') }}" class="btn btn-secondry btn-sm">
-                        <i class="fa fa-undo"></i> Back
+                    <a href="{{ url('penjualan-kasir/') }}" class="btn btn-secondry btn-sm">
+                        <i class="fa fa-close"></i> Close
                     </a>
                 </div>
             </div>
@@ -47,7 +47,7 @@
                                 
                                 <div class="form-group">
                                     <label>Sub Total</label>
-                                    <input type="text" name="total" id="total" class="form-control" readonly>
+                                    <input type="text" name="total" id="total" class="form-control" readonly value="0">
                                 </div>             
                                 <div class="form-group">
                                     <label>penjualan</label>
@@ -90,7 +90,7 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
 
 </script>
 
-<script>
+{{-- <script>
     // Mendapatkan elemen input PPN dan Subtotal
     const ppnInput = document.getElementById('ppn');
     const subtotalInput = document.getElementById('subtotal');
@@ -114,7 +114,7 @@ document.getElementById('myForm').addEventListener('submit', function(event) {
         // Menetapkan nilai Total ke input Total
         totalInput.value = totalValue.toFixed(2); // Format menjadi dua angka desimal
     }
-</script>
+</script> --}}
 
 <script>
     $(document).ready(function() {
